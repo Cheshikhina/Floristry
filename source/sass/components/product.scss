@@ -1,0 +1,155 @@
+.products {
+  @include list;
+  display: flex;
+  counter-reset: myCounter;
+
+  li {
+    display: flex;
+    width: 100%;
+    max-width: 352px;
+    min-height: 472px;
+  }
+}
+
+.products__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  z-index: 1;
+  transition: $duration_03 $duration_03;
+
+  &::after {
+    position: absolute;
+    content: "";
+    display: block;
+    height: 0;
+    width: calc(100% - 10px*2);
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba($black, $opacity_06);
+    z-index: -1;
+    transition: $duration_03 $duration_03;
+  }
+}
+
+.products__number {
+  position: absolute;
+  display: block;
+  width: rem(102);
+  height: 22px;
+  margin: 0;
+  top: 46px;
+  left: 30px;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    counter-increment: myCounter;
+    content: counter(myCounter, decimal-leading-zero);
+    left: 0;
+    bottom: 0;
+    color: $white;
+    transition: $transition;
+  }
+
+  span {
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+      width: rem(70);
+      height: 1px;
+      bottom: 0;
+      background-color: $white;
+      transition: $transition;
+    }
+
+    &::before {
+      right: 0;
+    }
+
+    &::after {
+      left: -1*rem(70);
+    }
+  }
+}
+
+.products__img {
+  position: absolute;
+  height: calc(100% - 10px*2);
+  width: calc(100% - 10px*2);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.products__title {
+  @include card_title;
+  margin: 70px rem(20) 15px;
+}
+
+.products__btn {
+  @include button_font;
+  display: flex;
+  justify-content: center;
+  align-self: flex-start;
+  align-items: center;
+  margin: 0 rem(20);
+  margin-bottom: -65px;
+  padding: 16px rem(30);
+  padding-top: 19px;
+  color: $dark;
+  background-color: $white;
+  transition: $duration_03 $duration_03;
+}
+
+.products__item:hover,
+.products__item:focus {
+  border: 1px solid rgba($white, $opacity_02);
+  transition: $duration_03;
+
+  &::after {
+    height: calc(100% - 10px*2);
+    transition: $transition;
+  }
+
+  .products__number {
+    &::before {
+      left: calc(100% - 20px);
+      transition: $duration_03 $duration_03;
+    }
+
+    span {
+      &::before {
+        right: -1*rem(70);
+        transition: $duration_03 $duration_03;
+      }
+
+      &::after {
+        left: 0;
+        transition: $duration_03 $duration_03;
+      }
+    }
+  }
+
+  .products__btn {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    transition: $duration_03;
+  }
+}

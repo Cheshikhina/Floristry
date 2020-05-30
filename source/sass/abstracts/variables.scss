@@ -1,0 +1,88 @@
+// sizes
+$mobile_min: 320px;
+$mobile_max: 768px;
+$tablet_max: 1024px;
+$desktop_max: 1920px;
+$no_mobile: 769px;
+
+// color scheme
+$white: #ffffff;
+$black: #000000;
+$dark: #010001;
+$accent_1: #3B181E;
+$border_input: rgba(246, 246, 249, 0.2);
+
+// fonts size
+$main_font: 18px;
+
+$fs_10: 10;
+$fs_11: 11;
+$fs_12: 12;
+$fs_14: 14;
+$fs_15: 15;
+$fs_16: 16;
+$fs_20: 20;
+$fs_25: 25;
+$fs_30: 30;
+$fs_35: 35;
+$fs_45: 45;
+$fs_70: 70;
+$fs_120: 120;
+$fs_220: 220;
+
+$lh_11: 11;
+$lh_12: 12;
+$lh_13: 13;
+$lh_15: 15;
+$lh_17: 17;
+$lh_18: 18;
+$lh_22: 22;
+$lh_24: 24;
+$lh_27: 27;
+$lh_28: 28;
+$lh_33: 33;
+$lh_34: 34;
+$lh_39: 39;
+$lh_42: 42;
+$lh_50: 50;
+$lh_51: 51;
+$lh_77: 77;
+$lh_132: 132;
+$lh_243: 243;
+
+// another
+$transition: all 0.3s;
+$duration_03: 0.3s;
+$duration_07: 0.7s;
+$opacity: 0.87;
+$opacity_003: 0.3;
+$opacity_02: 0.2;
+$opacity_04: 0.4;
+$opacity_05: 0.5;
+$opacity_06: 0.6;
+$opacity_09: 0.9;
+$placeholders_dots: "-moz-placeholder", "-webkit-input-placeholder", "placeholder";
+$placeholders_dot: "-moz-placeholder", "-ms-input-placeholder";
+
+// @each $placeholder in $placeholders_dots {
+//   &::#{$placeholder} {
+//     transition: $transition;
+//   }
+// }
+
+// @each $placeholder in $placeholders_dot {
+//   &:#{$placeholder} {
+//     transition: $transition;
+//   }
+// }
+
+$ls_m_010: -0.01em;
+$ls_006: 0.06em;
+$ls_009: 0.09em;
+$ls_010: 0.1em;
+$ls_015: 0.15em;
+$gradient: linear-gradient(0deg, #3B181E 3.33%, rgba(59, 24, 30, 0) 100%);
+
+// retina
+$retina_dpi: 144dpi;
+$retina_dppx: 1.5dppx;
