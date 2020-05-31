@@ -106,11 +106,22 @@
   }
 }
 
-@media (max-width: $desktop_max) {}
+@media (max-width: $tablet_max) {
+  .header__btn {
+    span {
+      @include visually_hidden;
+    }
+  }
+}
 
-// @media (max-width: $tablet_max) {}
-
-// @media (max-width: $mobile_max) {}
+@media (max-width: $mobile_max) {
+  .header__logo {
+    svg {
+      width: 83px;
+      height: 15px;
+    }
+  }
+}
 
 // @media (min-width: $no_mobile) {
 

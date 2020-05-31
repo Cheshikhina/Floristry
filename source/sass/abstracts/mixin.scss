@@ -180,7 +180,7 @@
   }
 }
 
-@mixin block_title($hover: "false") {
+@mixin popup_link($hover: "false") {
   @include font($fs_35, $lh_39);
   letter-spacing: $ls_009;
   text-transform: uppercase;

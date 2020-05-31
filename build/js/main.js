@@ -9457,19 +9457,17 @@ Swiper.use(components);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/sliders */ "./source/js/modules/sliders.js");
-
-window.addEventListener('DOMContentLoaded', function () {
-  Object(_modules_sliders__WEBPACK_IMPORTED_MODULE_0__["default"])();
-});
+/* harmony import */ var _sliders__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sliders */ "./source/js/sliders.js");
+ // window.addEventListener('DOMContentLoaded', () => {
+// });
 
 /***/ }),
 
-/***/ "./source/js/modules/sliders.js":
-/*!**************************************!*\
-  !*** ./source/js/modules/sliders.js ***!
-  \**************************************/
-/*! exports provided: default */
+/***/ "./source/js/sliders.js":
+/*!******************************!*\
+  !*** ./source/js/sliders.js ***!
+  \******************************/
+/*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9477,20 +9475,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/js/swiper.esm.bundle.js");
 
 
-var sliders = function sliders() {
-  if (document.querySelector('.swiper-container')) {
-    var mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.swiper-container', {
-      pagination: {
-        el: '.swiper-pagination'
+if (document.querySelector('.main-slider')) {
+  var mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.swiper-container.main-slider', {
+    slidesPerView: 1,
+    spaceBetween: 8,
+    loopFillGroupWithBlank: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 8,
+        init: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }
+      },
+      1024: {
+        slidesPerView: 4,
+        spaceBetween: 40,
+        init: true,
+        pagination: {
+          el: '.pagination',
+          clickable: true
+        }
       }
-    });
-  }
-}; // var mySwiper = new Swiper('.swiper-container', {
+    }
+  });
+  mainSlider.init();
+} // var mySwiper = new Swiper('.swiper-container', {
 //   /* ... */ });
 // console.log(1);
-
-
-/* harmony default export */ __webpack_exports__["default"] = (sliders);
 
 /***/ })
 

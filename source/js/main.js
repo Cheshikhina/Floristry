@@ -1,5 +1,4 @@
-import sliders from './modules/sliders';
+import './sliders';
 
-window.addEventListener('DOMContentLoaded', () => {
-  sliders();
-});
+// window.addEventListener('DOMContentLoaded', () => {
+// });

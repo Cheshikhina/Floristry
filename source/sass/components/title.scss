@@ -1,0 +1,24 @@
+.title {
+  @include block_title;
+  position: relative;
+  margin: 0;
+  display: flex;
+
+  &::after {
+    @include before;
+    height: 2px;
+    width: 85.5px;
+    bottom: 0;
+    background-color: $white;
+  }
+}
+
+.title--catalog {
+  @include block_title("catalog");
+
+  &::after {
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

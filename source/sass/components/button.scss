@@ -17,6 +17,18 @@
   background-color: rgba($black, $opacity_04);
 }
 
+@media (max-width: $tablet_max) {
+  .button {
+    padding: 22px 40px 21px;
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .button {
+    padding: 19px 30px 17px;
+  }
+}
+
 @media (min-width: $no_mobile) {
 
   .button:hover,

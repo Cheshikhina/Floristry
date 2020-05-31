@@ -9,6 +9,7 @@
 
 // libs for plugins
 @import "./libs/swiper";
+@import "./libs/main-slider";
 
 // general
 @import "./general/fonts";
@@ -19,13 +20,14 @@
 @import "./components/container";
 @import "./components/button";
 @import "./components/image";
-@import "./components/product";
 @import "./components/socials";
+@import "./components/title";
 
 // blocks
 @import "./blocks/header";
 @import "./blocks/footer";
 @import "./blocks/preamble";
+@import "./blocks/products";
 
 // ui - удалить потом
 @import "./ui";
