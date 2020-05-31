@@ -79,7 +79,7 @@
   cursor: pointer;
 }
 
-@mixin background($name, $type, $background_color, $is_mobile) {
+@mixin background($name, $type, $background_color, $is_tablet: "false", $is_mobile: "false") {
   @if $background_color !='false' {
     background-color: $background_color;
   }
@@ -92,8 +92,19 @@
     background-image: url("../img/#{$name}__desktop@2x.#{$type}");
   }
 
-  @media (max-width: $mobile_max) {
-    @if $is_mobile=='true' {
+  @if $is_tablet=='true' {
+    @media (max-width: $tablet_max) {
+      background-image: url("../img/#{$name}__tablet@1x.#{$type}");
+
+      @media (min-resolution: $retina_dpi),
+      (min-resolution: $retina_dppx) {
+        background-image: url("../img/#{$name}__tablet@2x.#{$type}");
+      }
+    }
+  }
+
+  @if $is_mobile=='true' {
+    @media (max-width: $mobile_max) {
       background-image: url("../img/#{$name}__mobile@1x.#{$type}");
 
       @media (min-resolution: $retina_dpi),
@@ -253,4 +264,14 @@
   max-width: $max_width*1px + $padding*2px;
   margin: 0 auto;
   padding: 0 $padding*1px;
+}
+
+@mixin before {
+  position: absolute;
+  content: "";
+  display: flex;
+}
+
+@mixin gradient($deg) {
+  background-image: linear-gradient($deg*1deg, #3B181E 3.33%, rgba(59, 24, 30, 0) 100%);
 }

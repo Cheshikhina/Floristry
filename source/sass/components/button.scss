@@ -1,15 +1,27 @@
 .button {
   @include button;
+  @include button_font;
+  padding: 19px 30px 16px;
+  border: 1px solid $white;
+  color: $white;
   transition: $transition;
 
   &:active {
+    color: $black;
+    background-color: $white;
     opacity: $opacity;
   }
+}
+
+.button--back_opacity {
+  background-color: rgba($black, $opacity_04);
 }
 
 @media (min-width: $no_mobile) {
 
   .button:hover,
   .button:focus {
+    color: $black;
+    background-color: $white;
   }
 }

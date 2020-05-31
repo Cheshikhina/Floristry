@@ -1,4 +1,112 @@
-// .header {}
+.header {
+  @include container((1920-40*2), 50);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  min-height: 76px;
+  margin-top: 80px;
+  padding-left: 56px;
+  background-color: transparent;
+}
+
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    @include font(20, 22);
+    margin: 0;
+    letter-spacing: $ls_006;
+  }
+
+  svg {
+    fill: transparent;
+    stroke: $white;
+  }
+}
+
+.header__btn {
+  @include button;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+  order: 100;
+  overflow: hidden;
+  transition: transition;
+
+  span {
+    @include font(20, 22);
+    margin: 0;
+    letter-spacing: $ls_006;
+    color: $white;
+    transition: transition;
+  }
+
+  &::before,
+  &::after {
+    @include before;
+    width: 23px;
+    height: 1px;
+    left: 2px;
+    transform: translateY(-50%);
+    background-color: $white;
+  }
+
+  &::before {
+    top: calc(50% - 1px);
+  }
+
+  &::after {
+    top: calc(50% + 5px);
+  }
+}
+
+.header__menu {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $accent_1;
+  width: 100vw;
+  height: 100vh;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  z-index: -100;
+  order: 101;
+}
+
+.header__btn--open {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  padding-left: 5px;
+
+  span {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  &::before,
+  &::after {
+    top: 50%;
+  }
+
+  &::before {
+    transform: rotate(-45deg) translateY(-50%);
+  }
+
+  &::after {
+    transform: rotate(45deg) translateY(-50%);
+  }
+}
+
+@media (max-width: $desktop_max) {}
 
 // @media (max-width: $tablet_max) {}
 

@@ -1,1 +1,5 @@
-import './main-slider';
+import sliders from './modules/sliders';
+
+window.addEventListener('DOMContentLoaded', () => {
+  sliders();
+});

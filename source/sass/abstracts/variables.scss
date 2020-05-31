@@ -10,6 +10,7 @@ $white: #ffffff;
 $black: #000000;
 $dark: #010001;
 $accent_1: #3B181E;
+$scroll_btn_bg: #240000;
 $border_input: rgba(246, 246, 249, 0.2);
 
 // fonts size
@@ -54,15 +55,20 @@ $lh_243: 243;
 $transition: all 0.3s;
 $duration_03: 0.3s;
 $duration_07: 0.7s;
+$duration_09: 0.99s;
+$duration_14: 1.4s;
 $opacity: 0.87;
-$opacity_003: 0.3;
 $opacity_02: 0.2;
+$opacity_03: 0.3;
 $opacity_04: 0.4;
 $opacity_05: 0.5;
 $opacity_06: 0.6;
 $opacity_09: 0.9;
-$placeholders_dots: "-moz-placeholder", "-webkit-input-placeholder", "placeholder";
-$placeholders_dot: "-moz-placeholder", "-ms-input-placeholder";
+$placeholders_dots: "-moz-placeholder",
+"-webkit-input-placeholder",
+"placeholder";
+$placeholders_dot: "-moz-placeholder",
+"-ms-input-placeholder";
 
 // @each $placeholder in $placeholders_dots {
 //   &::#{$placeholder} {
@@ -81,7 +87,6 @@ $ls_006: 0.06em;
 $ls_009: 0.09em;
 $ls_010: 0.1em;
 $ls_015: 0.15em;
-$gradient: linear-gradient(0deg, #3B181E 3.33%, rgba(59, 24, 30, 0) 100%);
 
 // retina
 $retina_dpi: 144dpi;

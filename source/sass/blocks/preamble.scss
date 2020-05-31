@@ -1,0 +1,105 @@
+.preamble {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 75px;
+
+  &::after {
+    @include before;
+    @include gradient(0);
+    width: 100%;
+    height: 75px;
+    bottom: 0;
+  }
+}
+
+.preamble__box {
+  @include container(950, 50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.preamble__title {
+  @include page_title;
+}
+
+.preamble__row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.preamble__socials {
+  display: flex;
+  flex-direction: column;
+
+  li+li {
+    margin-top: 24px;
+  }
+}
+
+
+.preamble__scroll {
+  @include button;
+  position: relative;
+  width: 36px;
+  height: 56px;
+  background: rgba($scroll_btn_bg, $opacity_03);
+  border: 0.7px solid $white;
+  border-radius: 22px;
+
+  &::before {
+    @include before;
+    width: 0.7px;
+    height: 9.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 9.5px;
+    background-color: $white;
+  }
+}
+
+.preamble__prompt {
+  @include button;
+  @include font(20, 22);
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  padding-right: 53.5px;
+  transform: rotate(90deg);
+  letter-spacing: $ls_006;
+  color: $white;
+  z-index: 10;
+
+  &::after {
+    @include before;
+    width: 13px;
+    height: 13px;
+    right: 10px;
+    background-image: url(../img/arrow_small.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(-90deg);
+    transition: $transition;
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .preamble__scroll:hover,
+  .preamble__scroll:focus {
+    &::before {
+      animation: scroll $duration_09 infinite;
+    }
+  }
+
+  .preamble__prompt:hover,
+  .preamble__prompt:focus {
+    &::after {
+      right: 0;
+    }
+  }
+}

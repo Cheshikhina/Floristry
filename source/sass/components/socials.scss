@@ -1,0 +1,41 @@
+.socials {
+  @include list;
+}
+
+.socials__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    width: 27px;
+    height: 27px;
+    color: $white;
+
+    svg {
+      fill: transparent;
+      transition: $transition;
+    }
+
+    &:active {
+      color: $black;
+
+      svg {
+        fill: $white;
+        opacity: $opacity;
+      }
+    }
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .socials__item a:hover,
+  .socials__item a:focus {
+    color: $black;
+
+    svg {
+      fill: $white;
+    }
+  }
+}
