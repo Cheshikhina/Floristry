@@ -1,0 +1,27 @@
+.main_slider {
+  @include container(1520, 15);
+
+  @media (max-width: $tablet_max) {
+    .main_slider__pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main_slider__bullet {
+      display: block;
+      height: 3px;
+      width: 62.61px;
+      background-color: rgba($white, $opacity_03);
+      transition: $transition;
+
+      &+.main_slider__bullet {
+        margin-left: 12.52px;
+      }
+    }
+
+    .main_slider__bullet--active {
+      background-color: $white;
+    }
+  }
+}

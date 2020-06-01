@@ -1,0 +1,44 @@
+.catalog {
+  @include container(1660,15);
+  padding-top: 187px;
+  padding-bottom: 70px;
+}
+
+.catalog__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 120px;
+
+  &::before {
+    @include before;
+    width: 100%;
+    max-width: 1659px;
+    height: 243px;
+    background-image: url(../img/catalog_text.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    top: 18px;
+  }
+}
+
+@media (max-width: $tablet_max) {
+  .catalog {
+    padding-top: 100px;
+  }
+
+  .catalog__title {
+    margin-bottom: 52px;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .catalog__title {
+    margin-bottom: 20px;
+  }
+}

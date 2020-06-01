@@ -1,0 +1,27 @@
+.promo {
+  @include container(1270, 15);
+  display: flex;
+  justify-content: space-between;
+  padding-top: 100px;
+  padding-bottom: 70px;
+}
+
+.promo__box {
+  width: 100%;
+  max-width: 350px;
+}
+
+.promo__title {
+  margin-bottom: 40px;
+}
+
+.promo__text {
+  @include font($fs_14, $lh_24);
+  margin: 0;
+  margin-bottom: 45px;
+}
+
+.promo__btn {
+  width: 100%;
+  max-width: 220px;
+}

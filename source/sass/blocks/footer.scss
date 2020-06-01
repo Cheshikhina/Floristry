@@ -1,3 +1,54 @@
 .footer {
+  @include container(1816, 21);
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 30px;
+  overflow: hidden;
+
+  &::before {
+    @include before;
+    position: relative;
+    height: 1px;
+    width: 100%;
+    margin-bottom: 21px;
+    background-color: rgba($white, $opacity_02);
+  }
+}
+
+.footer__menu {
+  margin-bottom: 30px;
+
+  a {
+    @include footer_link;
+    transition: $transition;
+
+    &:active {
+      color: $white;
+      opacity: $opacity;
+    }
+  }
+
+  a+a {
+    margin-left: 50px;
+  }
+}
+
+.footer__socials {
+  display: flex;
+
+  li+li {
+    margin-left: 50px;
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .footer__menu a:hover,
+  .footer__menu a:focus {
+    color: $white;
+  }
 }

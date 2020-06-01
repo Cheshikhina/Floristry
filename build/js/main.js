@@ -9475,37 +9475,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/js/swiper.esm.bundle.js");
 
 
-if (document.querySelector('.main-slider')) {
-  var mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.swiper-container.main-slider', {
+if (document.querySelector('.main_slider')) {
+  var mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.main_slider', {
     slidesPerView: 1,
+    slidesPerGroup: 1,
     spaceBetween: 8,
-    loopFillGroupWithBlank: true,
     pagination: {
-      el: '.swiper-pagination',
+      el: '.main_slider__pagination',
+      bulletClass: 'main_slider__bullet',
+      bulletActiveClass: 'main_slider__bullet--active',
       clickable: true
     },
     breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 8,
+        slidesPerGroup: 1
+      },
       768: {
         slidesPerView: 2,
-        spaceBetween: 8,
-        init: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        }
+        slidesPerGroup: 2,
+        spaceBetween: 8
       },
       1024: {
         slidesPerView: 4,
-        spaceBetween: 40,
-        init: true,
-        pagination: {
-          el: '.pagination',
-          clickable: true
-        }
+        slidesPerGroup: 4,
+        spaceBetween: 40
       }
     }
   });
-  mainSlider.init();
 } // var mySwiper = new Swiper('.swiper-container', {
 //   /* ... */ });
 // console.log(1);

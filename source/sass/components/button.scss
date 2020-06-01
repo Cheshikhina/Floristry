@@ -17,6 +17,12 @@
   background-color: rgba($black, $opacity_04);
 }
 
+.button--back_dark {
+  @include font($fs_11, $lh_12);
+  border: 1px solid transparent;
+  background-color: $dark;
+}
+
 @media (max-width: $tablet_max) {
   .button {
     padding: 22px 40px 21px;
