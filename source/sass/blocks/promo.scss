@@ -1,14 +1,19 @@
 .promo {
-  @include container(1270, 15);
+  @include container(1256, 15);
   display: flex;
   justify-content: space-between;
   padding-top: 100px;
-  padding-bottom: 70px;
+  padding-bottom: 64px;
 }
 
 .promo__box {
   width: 100%;
   max-width: 350px;
+  margin-left: rem(41);
+  margin-top: -3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .promo__title {

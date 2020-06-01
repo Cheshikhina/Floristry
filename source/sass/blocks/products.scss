@@ -1,12 +1,9 @@
 .products {
   @include list;
-  // display: flex;
   counter-reset: myCounter;
 
   li {
     display: flex;
-    // width: 100%;
-    // max-width: 352px;
     min-height: 472px;
   }
 }
@@ -67,7 +64,7 @@
       display: block;
       width: rem(70);
       height: 1px;
-      bottom: 0;
+      bottom: 4px;
       background-color: $white;
       transition: $transition;
     }
@@ -102,7 +99,7 @@
 
 .products__title {
   @include card_title;
-  margin: 70px rem(20) 15px;
+  margin: 70px rem(20) 32px;
 }
 
 .products__btn {
@@ -113,8 +110,8 @@
   align-items: center;
   margin: 0 rem(20);
   margin-bottom: -65px;
-  padding: 16px rem(30);
-  padding-top: 19px;
+  padding: 18px rem(38);
+  padding-top: 20px;
   color: $dark;
   background-color: $white;
   transition: $duration_03 $duration_03;
@@ -130,9 +127,13 @@
     transition: $transition;
   }
 
+  .products__title {
+    margin-bottom: 18px;
+  }
+
   .products__number {
     &::before {
-      left: calc(100% - 20px);
+      left: calc(100% - 23px);
       transition: $duration_03 $duration_03;
     }
 
@@ -150,7 +151,6 @@
   }
 
   .products__btn {
-    margin-top: 5px;
     margin-bottom: 20px;
     transition: $duration_03;
   }

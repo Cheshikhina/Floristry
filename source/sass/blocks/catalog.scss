@@ -1,25 +1,25 @@
 .catalog {
-  @include container(1660,15);
-  padding-top: 187px;
-  padding-bottom: 70px;
+  @include container(1660, 15);
+  padding-top: 209px;
+  padding-bottom: 60px;
 }
 
 .catalog__title {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 120px;
+  margin-bottom: 108px;
 
   &::before {
     @include before;
     width: 100%;
-    max-width: 1659px;
+    max-width: 1648px;
     height: 243px;
     background-image: url(../img/catalog_text.svg);
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: center;
-    top: 18px;
+    top: 14px;
   }
 }
 

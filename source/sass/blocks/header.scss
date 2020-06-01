@@ -1,11 +1,11 @@
 .header {
-  @include container((1920-40*2), 50);
+  @include container((1730), 50);
   position: relative;
   display: flex;
   justify-content: space-between;
   min-height: 76px;
   margin-top: 80px;
-  padding-left: 56px;
+  padding-left: 51px;
   background-color: transparent;
 }
 
@@ -14,10 +14,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-self: flex-start;
+  margin-top: 7px;
 
   p {
     @include font(20, 22);
     margin: 0;
+    margin-top: 3px;
     letter-spacing: $ls_006;
   }
 
@@ -54,14 +57,24 @@
     left: 2px;
     transform: translateY(-50%);
     background-color: $white;
+    transition: $transition;
   }
 
   &::before {
-    top: calc(50% - 1px);
+    top: calc(50% - 3px);
   }
 
   &::after {
-    top: calc(50% + 5px);
+    top: calc(50% + 3px);
+  }
+
+  &:active {
+    opacity: $opacity;
+
+    &::before,
+    &::after {
+      top: calc(50% - 0.5px);
+    }
   }
 }
 
@@ -123,9 +136,14 @@
   }
 }
 
-// @media (min-width: $no_mobile) {
+@media (min-width: $no_mobile) {
 
-//   .:hover,
-//   .:focus {
-//   }
-// }
+  .header__btn:hover,
+  .header__btn:focus {
+
+    &::before,
+    &::after {
+      top: calc(50% - 0.5px);
+    }
+  }
+}
