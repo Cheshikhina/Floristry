@@ -30,7 +30,7 @@ gulp.task("index", () => {
       module: {
         rules: [{
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /(node_modules[\/\\](?!(swiper|dom7)[\/\\])|bower_components)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -59,7 +59,7 @@ gulp.task("index-min", () => {
       module: {
         rules: [{
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /(node_modules[\/\\](?!(swiper|dom7)[\/\\])|bower_components)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -71,7 +71,7 @@ gulp.task("index-min", () => {
               ]
             }
           }
-        }]
+        }],
       }
     }))
     .pipe(gulp.dest(dist));

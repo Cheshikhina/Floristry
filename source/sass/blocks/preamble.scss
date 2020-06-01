@@ -109,6 +109,11 @@
     background-size: contain;
     transform: rotate(-90deg);
     transition: $transition;
+
+    @media screen and (-ms-high-contrast: active),
+    (-ms-high-contrast: none) {
+      top: 6px;
+    }
   }
 }
 

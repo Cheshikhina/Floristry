@@ -20,6 +20,12 @@
     background-size: contain;
     background-position-y: center;
     top: 14px;
+
+    @media screen and (-ms-high-contrast: active),
+    (-ms-high-contrast: none) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 
