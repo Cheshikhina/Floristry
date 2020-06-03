@@ -66,13 +66,13 @@
                 </a>
               </li>
             </ul>
-            <button type="button" class="preamble__scroll" aria-label="Перейти к основному контенту страницы"><span aria-hidden="true"></span></button>
-            <button type="button" class="preamble__prompt">смотреть каталог</button>
+            <a href="#catalog_block" class="preamble__scroll" aria-label="Перейти к основному контенту страницы" data-anchor=""><span aria-hidden="true"></span></a>
+            <a href="#catalog_block" class="preamble__prompt" data-anchor="">смотреть каталог</a>
           </div>
         </div>
       </div>
       <main>
-        <section class="catalog">
+        <section class="catalog" id="catalog_block">
           <h2 class="catalog__title title title--catalog">Каталог услуг</h2>
           <div class="swiper-container main_slider">
             <ol class="products swiper-wrapper">
@@ -87,7 +87,7 @@
                       <!-- 1х: 288px; 2x: 576px -->
                       <source media="(max-width: 767px)" srcset="./img/catalog_1__mobile@1x.jpg 1x, ./img/catalog_1__mobile@2x.jpg 2x">
                       <!-- 1х: 330px; 2x: 660px -->
-                      <img src="img/catalog_1__desktop@1x.jpg" srcset="img/catalog_1__desktop@2x.jpg 2x" alt="Букет невесты из разноцветных роз" width="330" height="450">
+                      <img src="img/catalog_1__desktop@1x.jpg" srcset="img/catalog_1__desktop@2x.jpg 2x" alt="Букет невесты из разноцветных роз" width="330" height="450" loading="lazy">
                     </picture>
                   </div>
                   <h3 class="products__title">букет невесты и&nbsp;свадебное оформление</h3>
@@ -105,7 +105,7 @@
                       <!-- 1х: 288px; 2x: 576px -->
                       <source media="(max-width: 767px)" srcset="./img/catalog_2__mobile@1x.jpg 1x, ./img/catalog_2__mobile@2x.jpg 2x">
                       <!-- 1х: 330px; 2x: 660px -->
-                      <img src="img/catalog_2__desktop@1x.jpg" srcset="img/catalog_2__desktop@2x.jpg 2x" alt="Букет из желтых карликовых роз" width="330" height="450">
+                      <img src="img/catalog_2__desktop@1x.jpg" srcset="img/catalog_2__desktop@2x.jpg 2x" alt="Букет из желтых карликовых роз" width="330" height="450" loading="lazy">
                     </picture>
                   </div>
                   <h3 class="products__title">букеты на&nbsp;торжества</h3>
@@ -123,7 +123,7 @@
                       <!-- 1х: 288px; 2x: 576px -->
                       <source media="(max-width: 767px)" srcset="./img/catalog_3__mobile@1x.jpg 1x, ./img/catalog_3__mobile@2x.jpg 2x">
                       <!-- 1х: 330px; 2x: 660px -->
-                      <img src="img/catalog_3__desktop@1x.jpg" srcset="img/catalog_3__desktop@2x.jpg 2x" alt="Очаровательный сборный букет" width="330" height="450">
+                      <img src="img/catalog_3__desktop@1x.jpg" srcset="img/catalog_3__desktop@2x.jpg 2x" alt="Очаровательный сборный букет" width="330" height="450" loading="lazy">
                     </picture>
                   </div>
                   <h3 class="products__title">композиции</h3>
@@ -141,7 +141,7 @@
                       <!-- 1х: 288px; 2x: 576px -->
                       <source media="(max-width: 767px)" srcset="./img/catalog_4__mobile@1x.jpg 1x, ./img/catalog_4__mobile@2x.jpg 2x">
                       <!-- 1х: 330px; 2x: 660px -->
-                      <img src="img/catalog_4__desktop@1x.jpg" srcset="img/catalog_4__desktop@2x.jpg 2x" alt="Оформленные стены барбарисом и миниатюрным домиком из дерева" width="330" height="450">
+                      <img src="img/catalog_4__desktop@1x.jpg" srcset="img/catalog_4__desktop@2x.jpg 2x" alt="Оформленные стены барбарисом и миниатюрным домиком из дерева" width="330" height="450" loading="lazy">
                     </picture>
                   </div>
                   <h3 class="products__title">оформление мероприятий</h3>
@@ -169,7 +169,7 @@
               <!-- 1х: 453px; 2x: 906px -->
               <source media="(max-width: 1023px)" srcset="./img/promo__tablet@1x.jpg 1x, ./img/promo__tablet@2x.jpg 2x">
               <!-- 1х: 697px; 2x: 1394px -->
-              <img src="img/promo__desktop@1x.jpg" srcset="img/promo__desktop@2x.jpg 2x" alt="Шикарно оформленный свадебный стол" width="697" height="410">
+              <img src="img/promo__desktop@1x.jpg" srcset="img/promo__desktop@2x.jpg 2x" alt="Шикарно оформленный свадебный стол" width="697" height="410" loading="lazy">
             </picture>
           </div>
         </section>
@@ -215,7 +215,7 @@
       </ul>
     </footer>
   </div>
-  <script defer="" src="node_modules/svgxuse/svgxuse.js"></script>
+  <!-- <script defer src="node_modules/svgxuse/svgxuse.js"></script> -->
 
   <script src="./js/main.js"></script>
 </body>

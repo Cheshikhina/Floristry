@@ -74,7 +74,7 @@
     }
 
     &::after {
-      left: -1*rem(70);
+      left: -1*rem(80);
     }
   }
 }
@@ -126,10 +126,10 @@
     height: calc(100% - 10px*2);
     transition: $transition, height 0.3s;
 
-    @media screen and (-ms-high-contrast: active),
-    (-ms-high-contrast: none) {
-      transform: translate(0, -100%) translate(-50%, 100%);
-    }
+    // @media screen and (-ms-high-contrast: active),
+    // (-ms-high-contrast: none) {
+    //   transform: translate(0, -100%) translate(-50%, 100%);
+    // }
 
   }
 
@@ -145,7 +145,7 @@
 
     span {
       &::before {
-        right: -1*rem(70);
+        right: -1*rem(80);
         transition: $duration_03 $duration_03;
       }
 

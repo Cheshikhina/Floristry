@@ -47,3 +47,9 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.body_hidden {
+  overflow-y: hidden;
+  position: fixed;
+  width: 100%;
+}
