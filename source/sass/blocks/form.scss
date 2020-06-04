@@ -1,0 +1,106 @@
+.form {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    @include visually_hidden;
+  }
+
+  input {
+    @include popup_input;
+    display: flex;
+    width: 100%;
+    min-height: 44px;
+    margin-bottom: 16.5px;
+    padding: 13px 21px 11px;
+    background-color: transparent;
+    background: 0 0;
+    border: none;
+    border: 1px solid $border_input;
+    border-radius: 0;
+    outline: 0;
+    resize: none;
+    transition: $transition;
+
+    @each $placeholder in $placeholders_dots {
+      &::#{$placeholder} {
+        @include popup_input("true");
+        transition: $transition;
+      }
+    }
+
+    @each $placeholder in $placeholders_dot {
+      &:#{$placeholder} {
+        @include popup_input("true");
+        transition: $transition;
+      }
+    }
+
+    &:hover {
+      border: 1px solid $white;
+      cursor: pointer;
+    }
+
+    &:focus {
+      border: 1px solid $white;
+
+
+      @each $placeholder in $placeholders_dots {
+        &::#{$placeholder} {
+          opacity: 0;
+        }
+      }
+
+      @each $placeholder in $placeholders_dot {
+        &:#{$placeholder} {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  [type="submit"] {
+    @include popup_button;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10.5px;
+    min-height: 44px;
+    padding: 12px;
+    padding-top: 17px;
+  }
+}
+
+
+@media (max-width: $tablet_max) {
+  .form {
+    input {
+      min-height: 66px;
+      margin-bottom: 24.7px;
+      padding: 20px 33px;
+    }
+
+    [type="submit"] {
+      padding: 19px;
+      margin-top: 24.5px;
+    }
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .form {
+    input {
+      min-height: 44px;
+      margin-bottom: 16.5px;
+      padding: 13px 22px 11px;
+    }
+
+    [type="submit"] {
+      padding: 12px;
+      padding-top: 17px;
+      margin-top: 10.5px;
+    }
+  }
+}

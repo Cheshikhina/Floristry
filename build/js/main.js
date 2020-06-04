@@ -15989,6 +15989,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/common */ "./source/js/modules/common.js");
 /* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/scroll */ "./source/js/modules/scroll.js");
 /* harmony import */ var _modules_menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/menu */ "./source/js/modules/menu.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/modal */ "./source/js/modules/modal.js");
+
 
 
 
@@ -15999,6 +16001,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_common__WEBPACK_IMPORTED_MODULE_3__["default"])();
   Object(_modules_scroll__WEBPACK_IMPORTED_MODULE_4__["default"])();
   Object(_modules_menu__WEBPACK_IMPORTED_MODULE_5__["default"])('.header__btn');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_6__["default"])('.trigger', '.modal', '.modal__close');
 });
 
 /***/ }),
@@ -16072,6 +16075,57 @@ var menu = function menu(selectorBtn) {
 
 /***/ }),
 
+/***/ "./source/js/modules/modal.js":
+/*!************************************!*\
+  !*** ./source/js/modules/modal.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.for-each */ "./node_modules/core-js/modules/es.array.for-each.js");
+/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overlay */ "./source/js/modules/overlay.js");
+
+
+
+
+var modal = function modal(selectorTrigger, selectorModalWrap, selectorModalClose) {
+  var buttons = document.querySelectorAll(selectorTrigger),
+      modalWrap = document.querySelector(selectorModalWrap),
+      modalBtnClose = document.querySelector(selectorModalClose),
+      classModalOpen = selectorModalWrap.substr(1) + '--open',
+      TIMEOUT_HIDE_POPUP = 750; // ms
+
+  function openModal(evt) {
+    evt.preventDefault();
+    Object(_overlay__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    modalWrap.classList.add(classModalOpen);
+    modalBtnClose.addEventListener('click', closeModal);
+  }
+
+  function closeModal(evt) {
+    evt.preventDefault();
+    setTimeout(function () {
+      Object(_overlay__WEBPACK_IMPORTED_MODULE_2__["default"])();
+      modalWrap.classList.remove(classModalOpen);
+    }, TIMEOUT_HIDE_POPUP);
+  }
+
+  if (buttons.length > 0) {
+    buttons.forEach(function (button) {
+      button.addEventListener('click', openModal);
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (modal);
+
+/***/ }),
+
 /***/ "./source/js/modules/overlay.js":
 /*!**************************************!*\
   !*** ./source/js/modules/overlay.js ***!
@@ -16081,6 +16135,8 @@ var menu = function menu(selectorBtn) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var scrollY;
+
 var overlay = function overlay() {
   var body = document.querySelector('body');
 
@@ -16098,9 +16154,12 @@ var overlay = function overlay() {
   if (body.classList.contains('body_hidden')) {
     body.classList.remove('body_hidden');
     body.style.paddingRight = 0;
+    window.scrollTo(0, parseInt(scrollY || '0', 10));
   } else {
     body.classList.add('body_hidden');
     body.style.paddingRight = getScrollbarWidth() + 'px';
+    scrollY = window.pageYOffset;
+    body.style.top = '-' + scrollY + 'px';
   }
 };
 

@@ -71,18 +71,6 @@ $placeholders_dots: "-moz-placeholder",
 $placeholders_dot: "-moz-placeholder",
 "-ms-input-placeholder";
 
-// @each $placeholder in $placeholders_dots {
-//   &::#{$placeholder} {
-//     transition: $transition;
-//   }
-// }
-
-// @each $placeholder in $placeholders_dot {
-//   &:#{$placeholder} {
-//     transition: $transition;
-//   }
-// }
-
 $ls_m_010: -0.01em;
 $ls_006: 0.06em;
 $ls_009: 0.09em;

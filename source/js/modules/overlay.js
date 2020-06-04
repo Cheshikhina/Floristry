@@ -1,3 +1,5 @@
+let scrollY;
+
 const overlay = () => {
   const body = document.querySelector('body');
 
@@ -18,9 +20,12 @@ const overlay = () => {
   if (body.classList.contains('body_hidden')) {
     body.classList.remove('body_hidden');
     body.style.paddingRight = 0;
+    window.scrollTo(0, parseInt(scrollY || '0', 10));
   } else {
     body.classList.add('body_hidden');
     body.style.paddingRight = getScrollbarWidth() + 'px';
+    scrollY = window.pageYOffset;
+    body.style.top = '-' + scrollY + 'px';
   }
 };
 

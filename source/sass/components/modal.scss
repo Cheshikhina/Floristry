@@ -1,0 +1,138 @@
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($black, $opacity_06);
+  z-index: -100;
+  transition: $duration_03 $duration_03;
+}
+
+.modal__content {
+  @include background("modal", "jpg", $accent_1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 716px;
+  min-height: 444px;
+  padding: 66px;
+  padding-left: 66px + 335px;
+  background-size: contain;
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: $duration_03;
+}
+
+.modal__close {
+  @include button;
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before,
+  &::after {
+    @include before;
+    width: 100%;
+    height: 1px;
+    background-color: $white;
+    transition: $transition;
+  }
+
+  &::before {
+    transform: rotate(-45deg);
+  }
+
+  &::after {
+    transform: rotate(45deg);
+  }
+
+  &:active {
+    opacity: $opacity;
+  }
+}
+
+.modal__title {
+  @include popup_title;
+  margin: 0;
+  margin-bottom: 28px;
+  padding: 0 6px;
+  font-weight: 400;
+}
+
+.modal--open {
+  opacity: 1;
+  z-index: 150;
+  transition: $duration_07 $duration_03;
+
+  .modal__content {
+    opacity: 1;
+    transform: translateY(0);
+    transition: $duration_03 $duration_07;
+  }
+}
+
+@media (max-width: $tablet_max) {
+  .modal__content {
+    max-width: 464px;
+    min-height: 640px;
+    background-image: none;
+    padding: 104px 45px 78px;
+  }
+
+  .modal__close {
+    top: 40px;
+    right: 40px;
+  }
+
+  .modal__title {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .modal {
+    align-items: flex-start;
+    padding: 85px 16px 0;
+  }
+
+  .modal__content {
+    max-width: 464px;
+    min-height: 640px;
+    background-image: none;
+    padding: 62px 19px 52px;
+  }
+
+  .modal__close {
+    top: 20px;
+    right: 20px;
+  }
+
+  .modal__title {
+    margin-bottom: 28px;
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .modal__close:hover,
+  .modal__close:focus {
+
+    &::before,
+    &::after {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+  }
+}
