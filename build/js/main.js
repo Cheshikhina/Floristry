@@ -16089,9 +16089,9 @@ var overlay = function overlay() {
     div.style.overflowY = 'scroll';
     div.style.width = '50px';
     div.style.height = '50px';
-    document.body.appendChild(div);
+    body.appendChild(div);
     var scrollWidth = div.offsetWidth - div.clientWidth;
-    document.body.removeChild(div);
+    body.removeChild(div);
     return scrollWidth;
   }
 
@@ -16156,9 +16156,9 @@ __webpack_require__.r(__webpack_exports__);
 
 if (document.querySelector('.main_slider')) {
   var mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.main_slider', {
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    spaceBetween: 8,
+    slidesPerView: 4,
+    slidesPerGroup: 4,
+    spaceBetween: 40,
     pagination: {
       el: '.main_slider__pagination',
       bulletClass: 'main_slider__bullet',
@@ -16178,7 +16178,7 @@ if (document.querySelector('.main_slider')) {
       },
       1024: {
         slidesPerView: 4,
-        slidesPerGroup: 4,
+        // slidesPerGroup: 4,
         spaceBetween: 40
       }
     }

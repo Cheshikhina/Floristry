@@ -2,9 +2,9 @@ import Swiper from 'swiper';
 
 if (document.querySelector('.main_slider')) {
   const mainSlider = new Swiper('.main_slider', {
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    spaceBetween: 8,
+    slidesPerView: 4,
+    slidesPerGroup: 4,
+    spaceBetween: 40,
     pagination: {
       el: '.main_slider__pagination',
       bulletClass: 'main_slider__bullet',
@@ -24,7 +24,7 @@ if (document.querySelector('.main_slider')) {
       },
       1024: {
         slidesPerView: 4,
-        slidesPerGroup: 4,
+        // slidesPerGroup: 4,
         spaceBetween: 40,
       },
     }

@@ -83,7 +83,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: $accent_1;
   width: 100vw;
   height: calc(100vh + 80px);
@@ -99,6 +98,8 @@
   width: 35px;
   height: 35px;
   padding: 0;
+  margin-right: 0;
+  margin-left: auto;
   padding-left: 5px;
   z-index: 101;
 
@@ -121,14 +122,26 @@
   }
 
   &~.header__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 101;
   }
 
   &~.header__menu {
+    padding-top: 424px;
     opacity: 1;
     z-index: 100;
-  }
 
+    a {
+      @include menu_link;
+      transition: $transition;
+    }
+
+    a+a {
+      margin-top: 76px;
+    }
+  }
 }
 
 @media (max-width: $tablet_max) {
@@ -157,5 +170,10 @@
     &::after {
       top: calc(50% - 0.5px);
     }
+  }
+
+  .header__btn--open~.header__menu a:hover,
+  .header__btn--open~.header__menu a:focus {
+    @include menu_link("hover");
   }
 }

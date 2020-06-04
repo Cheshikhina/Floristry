@@ -1,6 +1,5 @@
 .main_slider {
-  @include container(1530);
-  padding-left: 10px;
+  @include container(1600);
 
   @media (max-width: $tablet_max) {
     .main_slider__pagination {

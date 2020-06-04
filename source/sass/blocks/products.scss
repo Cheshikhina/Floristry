@@ -5,6 +5,14 @@
   li {
     display: flex;
     min-height: 472px;
+    box-shadow: 0 0 0 1px transparent inset;
+    transition: $duration_03 $duration_03;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 1px rgba($white, $opacity_02) inset;
+      transition: $duration_03;
+    }
   }
 }
 
@@ -13,20 +21,19 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 100%;
-  padding: 10px;
-  border: 1px solid transparent;
+  width: calc(100% - 20px);
+  min-height: 452px;
+  margin: auto;
   overflow: hidden;
   z-index: 1;
-  transition: $duration_03 $duration_03;
 
   &::after {
     position: absolute;
     content: "";
     display: block;
     height: 0;
-    width: calc(100% - 10px*2);
-    bottom: 10px;
+    width: 100%;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba($black, $opacity_06);
@@ -41,8 +48,8 @@
   width: rem(102);
   height: 22px;
   margin: 0;
-  top: 46px;
-  left: 30px;
+  top: 36px;
+  left: 20px;
   overflow: hidden;
 
   &::before {
@@ -74,15 +81,15 @@
     }
 
     &::after {
-      left: -1*rem(80);
+      left: -1*rem(100);
     }
   }
 }
 
 .products__img {
   position: absolute;
-  height: calc(100% - 10px*2);
-  width: calc(100% - 10px*2);
+  height: 100%;
+  width: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -119,11 +126,8 @@
 
 .products__item:hover,
 .products__item:focus {
-  border: 1px solid rgba($white, $opacity_02);
-  transition: $duration_03;
-
   &::after {
-    height: calc(100% - 10px*2);
+    height: 100%;
     transition: $transition, height 0.3s;
 
     // @media screen and (-ms-high-contrast: active),
@@ -131,10 +135,6 @@
     //   transform: translate(0, -100%) translate(-50%, 100%);
     // }
 
-  }
-
-  .products__title {
-    margin-bottom: 18px;
   }
 
   .products__number {
@@ -145,7 +145,7 @@
 
     span {
       &::before {
-        right: -1*rem(80);
+        right: -1*rem(100);
         transition: $duration_03 $duration_03;
       }
 
@@ -157,6 +157,7 @@
   }
 
   .products__btn {
+    margin-top: -14px;
     margin-bottom: 20px;
     transition: $duration_03;
   }
