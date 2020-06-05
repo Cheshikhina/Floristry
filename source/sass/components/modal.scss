@@ -8,9 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba($black, $opacity_06);
+  background-color: rgba($black, $opacity_03);
   z-index: -100;
-  transition: $duration_03 $duration_03;
+  transition: $duration_03 $duration_07;
 }
 
 .modal__content {
@@ -73,7 +73,7 @@
 .modal--open {
   opacity: 1;
   z-index: 150;
-  transition: $duration_07 $duration_03;
+  transition: $duration_03;
 
   .modal__content {
     opacity: 1;
@@ -130,8 +130,8 @@
 
     &::before,
     &::after {
-      width: 15px;
-      height: 15px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
     }
   }

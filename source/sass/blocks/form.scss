@@ -62,6 +62,7 @@
   }
 
   [type="submit"] {
+    @include button;
     @include popup_button;
     display: flex;
     justify-content: center;
@@ -70,9 +71,14 @@
     min-height: 44px;
     padding: 12px;
     padding-top: 17px;
+    background-color: $white;
+    transition: $transition;
+
+    &:active {
+      opacity: $opacity;
+    }
   }
 }
-
 
 @media (max-width: $tablet_max) {
   .form {
@@ -102,5 +108,15 @@
       padding-top: 17px;
       margin-top: 10.5px;
     }
+  }
+}
+
+
+@media (min-width: $no_mobile) {
+
+  .form [type="submit"]:hover,
+  .form [type="submit"]:focus {
+    background-color: $dark;
+    color: $white;
   }
 }

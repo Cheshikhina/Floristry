@@ -16092,27 +16092,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var KeyCode = {
+  ESC: 27
+};
 
 var modal = function modal(selectorTrigger, selectorModalWrap, selectorModalClose) {
   var buttons = document.querySelectorAll(selectorTrigger),
       modalWrap = document.querySelector(selectorModalWrap),
       modalBtnClose = document.querySelector(selectorModalClose),
-      classModalOpen = selectorModalWrap.substr(1) + '--open',
-      TIMEOUT_HIDE_POPUP = 750; // ms
+      classModalOpen = selectorModalWrap.substr(1) + '--open';
+
+  function closeModalEsc(evt) {
+    if (evt.keyCode === KeyCode.ESC) {
+      closeModal();
+    }
+  }
+
+  function closeModalHandler(evt) {
+    if (evt.target.classList.contains('modal')) {
+      closeModal();
+    }
+  }
 
   function openModal(evt) {
     evt.preventDefault();
     Object(_overlay__WEBPACK_IMPORTED_MODULE_2__["default"])();
     modalWrap.classList.add(classModalOpen);
     modalBtnClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', closeModalEsc);
+    document.addEventListener('click', closeModalHandler);
   }
 
-  function closeModal(evt) {
-    evt.preventDefault();
-    setTimeout(function () {
-      Object(_overlay__WEBPACK_IMPORTED_MODULE_2__["default"])();
-      modalWrap.classList.remove(classModalOpen);
-    }, TIMEOUT_HIDE_POPUP);
+  function closeModal() {
+    Object(_overlay__WEBPACK_IMPORTED_MODULE_2__["default"])();
+    modalWrap.classList.remove(classModalOpen);
+    document.removeEventListener('keydown', closeModalEsc);
+    document.removeEventListener('click', closeModalHandler);
   }
 
   if (buttons.length > 0) {
