@@ -1,3 +1,5 @@
+import IMask from 'imask';
+
 const common = () => {
   const noFocus = () => {
     document.addEventListener('mouseup', function (evt) {
@@ -15,8 +17,20 @@ const common = () => {
     });
   };
 
+  const addPhoneMask = () => {
+    if (document.querySelectorAll('input[name="input_phone"]').length > 0) {
+      document.querySelectorAll('input[name="input_phone"]').forEach(input => {
+        let phoneMask = IMask(
+          input, {
+            mask: '+{7} (000) 000-00-00'
+          });
+      });
+    }
+  };
+
   noFocus();
   addClassForLazyload();
+  addPhoneMask();
 };
 
 export default common;

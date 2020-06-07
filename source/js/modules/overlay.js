@@ -1,6 +1,7 @@
-let scrollY;
+const overlay = {};
 
-const overlay = () => {
+overlay.scrollY = 0;
+overlay.mainFunction = () => {
   const body = document.querySelector('body');
 
   function getScrollbarWidth() {
@@ -16,17 +17,18 @@ const overlay = () => {
     body.removeChild(div);
     return scrollWidth;
   }
-
   if (body.classList.contains('body_hidden')) {
     body.classList.remove('body_hidden');
     body.style.paddingRight = 0;
-    window.scrollTo(0, parseInt(scrollY || '0', 10));
+    window.scrollTo(0, parseInt(overlay.scrollY || '0', 10));
+    body.style.top = 0;
   } else {
+    overlay.scrollY = window.pageYOffset;
     body.classList.add('body_hidden');
     body.style.paddingRight = getScrollbarWidth() + 'px';
-    scrollY = window.pageYOffset;
-    body.style.top = '-' + scrollY + 'px';
+    body.style.top = '-' + overlay.scrollY + 'px';
   }
+  return overlay.scrollY;
 };
 
 export default overlay;

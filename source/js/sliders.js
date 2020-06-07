@@ -24,14 +24,8 @@ if (document.querySelector('.main_slider')) {
       },
       1024: {
         slidesPerView: 4,
-        // slidesPerGroup: 4,
         spaceBetween: 40,
       },
     }
   });
 }
-
-// var mySwiper = new Swiper('.swiper-container', {
-//   /* ... */ });
-
-// console.log(1);

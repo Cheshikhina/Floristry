@@ -14,19 +14,23 @@
 }
 
 .modal__content {
-  @include background("modal", "jpg", $accent_1);
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 716px;
   min-height: 444px;
   padding: 66px;
-  padding-left: 66px + 335px;
-  background-size: contain;
   transform: translateY(-50px);
   opacity: 0;
+  background-color: $accent_1;
   transition: $duration_03;
+}
+
+.modal__content--form {
+  @include background("modal", "jpg", $accent_1);
+  background-size: contain;
+  padding-left: 66px+335px;
 }
 
 .modal__close {
@@ -70,16 +74,43 @@
   font-weight: 400;
 }
 
+.modal__content--success {
+  p {
+    margin: 40px auto;
+    text-align: center;
+  }
+
+  button {
+    @include button;
+    @include popup_button;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+    margin: auto;
+    margin-bottom: 0;
+    min-height: 44px;
+    padding: 12px;
+    padding-top: 17px;
+    background-color: $white;
+    transition: $transition;
+
+    &:active {
+      opacity: $opacity;
+    }
+  }
+}
+
 .modal--open {
   opacity: 1;
   z-index: 150;
   transition: $duration_03;
+}
 
-  .modal__content {
-    opacity: 1;
-    transform: translateY(0);
-    transition: $duration_03 $duration_07;
-  }
+.modal__content--open {
+  opacity: 1;
+  transform: translateY(0);
+  transition: $duration_03 $duration_07;
 }
 
 @media (max-width: $tablet_max) {
@@ -103,7 +134,7 @@
 @media (max-width: $mobile_max) {
   .modal {
     align-items: flex-start;
-    padding: 85px 16px 0;
+    padding: 85px 16px 67px;
   }
 
   .modal__content {
@@ -134,5 +165,11 @@
       height: 10px;
       border-radius: 50%;
     }
+  }
+
+  .modal__content--success button:hover,
+  .modal__content--success button:focus {
+    background-color: $dark;
+    color: $white;
   }
 }

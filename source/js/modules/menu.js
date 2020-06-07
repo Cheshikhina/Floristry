@@ -6,7 +6,7 @@ const menu = (selectorBtn) => {
   if (buttonMenu) {
     buttonMenu.addEventListener('click', function () {
       buttonMenu.classList.toggle(selectorBtn.substr(1) + '--open');
-      overlay();
+      overlay.mainFunction();
     });
   }
 };

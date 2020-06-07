@@ -5,10 +5,19 @@ import common from './modules/common';
 import scroll from './modules/scroll';
 import menu from './modules/menu';
 import modal from './modules/modal';
+import form from './modules/form';
 
 window.addEventListener('DOMContentLoaded', () => {
   common();
   scroll();
   menu('.header__btn');
-  modal('.trigger', '.modal', '.modal__close');
+  modal('[data-modal="open_popup"]', '#popup');
+  modal('.trigger', '#popup');
+  // modal('.promo__img'); поместить нужный для галереи класс
+
+  if (document.querySelectorAll('form').length) {
+    document.querySelectorAll('form').forEach(item => {
+      form(item);
+    });
+  }
 });

@@ -33,7 +33,7 @@
         <div class="preamble">
           <div class="preamble__box">
             <h1 class="preamble__title">флористика с&nbsp;душой</h1>
-            <button type="button" class="preamble__btn button button--back_opacity">заказать оформление</button>
+            <button type="button" class="preamble__btn button button--back_opacity" data-modal="open_popup">заказать оформление</button>
           </div>
           <div class="preamble__row">
             <ul class="preamble__socials socials">
@@ -156,7 +156,7 @@
           <div class="promo__box">
             <h2 class="promo__title title">акционные предложения</h2>
             <p class="promo__text">При заказе свадебного оформления предоставляется скидка на&nbsp;букет невесты и&nbsp;бутоньерку в&nbsp;размере&nbsp;30%</p>
-            <button type="button" class="promo__btn button button--back_dark">заказать оформление</button>
+            <button type="button" class="promo__btn button button--back_dark" data-modal="open_popup">заказать оформление</button>
           </div>
           <div class="promo__img">
             <picture>
@@ -215,6 +215,24 @@
       </ul>
     </footer>
   </div>
+
+  <template id="popup">
+    <section class="modal">
+      <div class="modal__content modal__content--form">
+        <button type="button" class="modal__close" aria-label="Закрыть модальное окно"></button>
+        <h2 class="modal__title">Оставьте свой номер и&nbsp;мы&nbsp;вам перезвоним!</h2>
+        <div class="form">
+          <form method="post">
+            <label for="your_name">Введите ваше имя</label>
+            <input type="text" name="input_name" id="your_name" placeholder="Имя">
+            <label for="your_phone">Введите номер вашего телефона</label>
+            <input type="text" name="input_phone" id="your_phone" placeholder="Телефон">
+            <button type="submit">ПОЗВОНИТЕ МНЕ</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </template>
 
   <script src="./js/main.js"></script>
 </body>

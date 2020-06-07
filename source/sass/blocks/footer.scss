@@ -2,9 +2,11 @@
   @include container(1816, 21);
   flex: 0 0 auto;
   display: flex;
+  margin-top: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
   padding-top: 100px;
   padding-bottom: 30px;
   overflow: hidden;

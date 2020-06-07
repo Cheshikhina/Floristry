@@ -78,6 +78,16 @@
       opacity: $opacity;
     }
   }
+
+  label+.form__error {
+    @include popup_input;
+    height: 14px;
+    margin-top: -14px;
+  }
+
+  .form__error+input {
+    border: 1px solid $error;
+  }
 }
 
 @media (max-width: $tablet_max) {

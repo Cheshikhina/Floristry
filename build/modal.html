@@ -31,23 +31,17 @@
           </nav>
         </header>
       </div>
-      <main>
-        <button type="button" style="max-width: 300px;display: flex;margin: auto;" class="trigger">вызвать модальное окно</button>
-        <section class="modal">
-          <div class="modal__content">
-            <button type="button" class="modal__close" aria-label="Закрыть модальное окно"></button>
-            <h2 class="modal__title">Оставьте свой номер и&nbsp;мы&nbsp;вам перезвоним!</h2>
-            <div class="form">
-              <form method="post">
-                <label for="your_name">Введите ваше имя</label>
-                <input type="text" name="input_name" id="your_name" placeholder="Имя">
-                <label for="your_phone">Введите номер вашего телефона</label>
-                <input type="text" name="input_phone" id="your_phone" placeholder="Телефон">
-                <button type="submit">ПОЗВОНИТЕ МНЕ</button>
-              </form>
-            </div>
-          </div>
-        </section>
+      <main style="width: 100%;align-items:center;">
+        <button type="button" style="max-width: 300px;display: flex;margin: auto; margin-bottom: 100px;" class="trigger">вызвать модальное окно</button>
+        <div class="form">
+          <form method="post">
+            <label for="your_name">Введите ваше имя</label>
+            <input type="text" name="input_name" id="your_name" placeholder="Имя">
+            <label for="your_phone">Введите номер вашего телефона</label>
+            <input type="text" name="input_phone" id="your_phone" placeholder="Телефон">
+            <button type="submit">ПОЗВОНИТЕ МНЕ</button>
+          </form>
+        </div>
       </main>
     </div>
     <footer class="footer">
@@ -90,6 +84,24 @@
       </ul>
     </footer>
   </div>
+
+  <template id="popup">
+    <section class="modal">
+      <div class="modal__content modal__content--form">
+        <button type="button" class="modal__close" aria-label="Закрыть модальное окно"></button>
+        <h2 class="modal__title">Оставьте свой номер и&nbsp;мы&nbsp;вам перезвоним!</h2>
+        <div class="form">
+          <form method="post">
+            <label for="your_name">Введите ваше имя</label>
+            <input type="text" name="input_name" id="your_name" placeholder="Имя">
+            <label for="your_phone">Введите номер вашего телефона</label>
+            <input type="text" name="input_phone" id="your_phone" placeholder="Телефон">
+            <button type="submit">ПОЗВОНИТЕ МНЕ</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </template>
 
   <script src="./js/main.js"></script>
 </body>

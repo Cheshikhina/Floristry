@@ -1,13 +1,24 @@
+import IMask from 'imask';
 import overlay from './overlay';
-const KeyCode = {
-  ESC: 27,
-};
+import form from './form';
+import itemInPopup from './item-in-popup';
 
-const modal = (selectorTrigger, selectorModalWrap, selectorModalClose) => {
-  const buttons = document.querySelectorAll(selectorTrigger),
-    modalWrap = document.querySelector(selectorModalWrap),
-    modalBtnClose = document.querySelector(selectorModalClose),
-    classModalOpen = selectorModalWrap.substr(1) + '--open';
+const modal = (selectorTrigger, idTemplate = false) => {
+  let modalWrap, modalInner, modalBtnClose, modalForm;
+
+  const KeyCode = {
+      ESC: 27,
+    },
+    TIMEOUT_HIDE_POPUP = 600,
+    buttons = document.querySelectorAll(selectorTrigger),
+    body = document.querySelector('body');
+
+  function createElement(tagEl, classEl, parentEl) {
+    let el = document.createElement(tagEl);
+    el.classList.add(classEl);
+    parentEl.appendChild(el);
+    return el;
+  }
 
   function closeModalEsc(evt) {
     if (evt.keyCode === KeyCode.ESC) {
@@ -23,18 +34,73 @@ const modal = (selectorTrigger, selectorModalWrap, selectorModalClose) => {
 
   function openModal(evt) {
     evt.preventDefault();
-    overlay();
-    modalWrap.classList.add(classModalOpen);
+    overlay.mainFunction();
+
+    if (idTemplate) {
+      let similarPopup = document.querySelector(idTemplate)
+        .content
+        .querySelector('.modal');
+      let popup = similarPopup.cloneNode(true);
+      body.appendChild(popup);
+
+      modalWrap = document.querySelector('.modal');
+      modalInner = document.querySelector('.modal__content');
+      modalBtnClose = modalWrap.querySelector('.modal__close');
+      modalForm = modalWrap.querySelector('form');
+    } else {
+      modalWrap = createElement('div', 'modal', body);
+      modalInner = createElement('div', 'modal__content', modalWrap);
+      modalBtnClose = createElement('button', 'modal__close', modalInner);
+      modalBtnClose.type = 'button';
+      itemInPopup(evt.target, modalInner);
+    }
+
+    modalWrap.style.top = overlay.scrollY + 'px';
+    setTimeout(function () {
+      modalWrap.classList.add('modal--open');
+      modalInner.classList.add('modal__content--open');
+    }, 1);
+
     modalBtnClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', closeModalEsc);
     document.addEventListener('click', closeModalHandler);
+
+    if (modalForm) {
+      form(modalForm, closeModal, closeModalContent);
+
+      if (modalForm.querySelectorAll('input[name="input_phone"]').length > 0) {
+        document.querySelectorAll('input[name="input_phone"]').forEach(input => {
+          let phoneMask = IMask(
+            input, {
+              mask: '+{7} (000) 000-00-00'
+            });
+        });
+      }
+    }
   }
 
   function closeModal() {
-    overlay();
-    modalWrap.classList.remove(classModalOpen);
-    document.removeEventListener('keydown', closeModalEsc);
-    document.removeEventListener('click', closeModalHandler);
+    modalWrap = document.querySelector('.modal');
+    modalInner = document.querySelector('.modal__content');
+    modalWrap.classList.remove('modal--open');
+    modalInner.classList.remove('modal__content--open');
+
+    setTimeout(function () {
+      body.removeChild(modalWrap);
+      overlay.mainFunction();
+      document.removeEventListener('keydown', closeModalEsc);
+      document.removeEventListener('click', closeModalHandler);
+    }, 300);
+  }
+
+  function closeModalContent() {
+    modalWrap = document.querySelector('.modal');
+    modalInner = document.querySelector('.modal__content');
+    modalInner.classList.remove('modal__content--open');
+
+    setTimeout(function () {
+      modalWrap.removeChild(modalInner);
+    }, TIMEOUT_HIDE_POPUP);
   }
 
   if (buttons.length > 0) {
@@ -43,5 +109,6 @@ const modal = (selectorTrigger, selectorModalWrap, selectorModalClose) => {
     });
   }
 };
+
 
 export default modal;
