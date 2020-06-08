@@ -1,5 +1,6 @@
 .wrapper {
   @include container(2070);
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -37,6 +38,16 @@
     left: calc(50% - 1920px / 2 - 75px);
   }
 }
+
+// .wrapper__content--page {
+//   @include container(1890, 15);
+//   background-size: auto 996px;
+//   background-position: 0 center;
+// }
+
+// .wrapper__content--page_1 {
+//   @include background("page1_background", "jpg", $accent_1, "true", "true");
+// }
 
 @media (max-width: $desktop_max) {
   .wrapper {

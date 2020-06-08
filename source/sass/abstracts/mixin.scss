@@ -131,6 +131,33 @@
   }
 }
 
+@mixin page_block_title {
+  @include font($fs_50, $lh_55);
+  font-weight: 400;
+  letter-spacing: $ls_009;
+  text-transform: uppercase;
+
+  @media (max-width: $tablet_max) {
+    @include font($fs_40, $lh_44);
+  }
+
+  @media (max-width: $mobile_max) {
+    @include font($fs_20, $lh_22);
+  }
+}
+
+@mixin page_block_text {
+  @include font($fs_18, $lh_27);
+
+  @media (max-width: $tablet_max) {
+    @include font($fs_20, $lh_24);
+  }
+
+  @media (max-width: $mobile_max) {
+    @include font($fs_18, $lh_22);
+  }
+}
+
 @mixin button_font {
   @include font($fs_12, $lh_13);
   text-align: center;

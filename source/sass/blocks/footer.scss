@@ -47,6 +47,16 @@
   }
 }
 
+.footer--page {
+  display: none;
+}
+
+@media (max-width: $tablet_max) {
+.footer--page {
+  display: flex;
+}
+}
+
 @media (min-width: $no_mobile) {
 
   .footer__menu a:hover,

@@ -113,6 +113,11 @@
   transition: $duration_03 $duration_07;
 }
 
+.modal__item {
+  width: 100%;
+  height: 100%;
+}
+
 @media (max-width: $tablet_max) {
   .modal__content {
     max-width: 464px;

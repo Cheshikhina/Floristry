@@ -29,3 +29,22 @@ if (document.querySelector('.main_slider')) {
     }
   });
 }
+
+if (document.querySelector('.page_slider')) {
+  const mainSlider = new Swiper('.page_slider__wrap', {
+    slidesPerView: 4,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.page_slider__btn--next',
+      prevEl: '.page_slider__btn--prev',
+    },
+    breakpoints: {
+      320: {
+        spaceBetween: 0,
+      },
+      768: {
+        spaceBetween: 23,
+      },
+    }
+  });
+}

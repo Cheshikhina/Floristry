@@ -20911,7 +20911,8 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_scroll__WEBPACK_IMPORTED_MODULE_6__["default"])();
   Object(_modules_menu__WEBPACK_IMPORTED_MODULE_7__["default"])('.header__btn');
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('[data-modal="open_popup"]', '#popup');
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('.trigger', '#popup'); // modal('.promo__img'); поместить нужный для галереи класс
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('.trigger', '#popup');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('.page_slider__img');
 
   if (document.querySelectorAll('form').length) {
     document.querySelectorAll('form').forEach(function (item) {
@@ -21249,6 +21250,7 @@ var form = function form(formNode) {
 __webpack_require__.r(__webpack_exports__);
 var itemInPopup = function itemInPopup(item, modalInner) {
   var cloneItem = item.cloneNode();
+  cloneItem.classList.add('modal__item');
   modalInner.appendChild(cloneItem);
 };
 
@@ -21527,6 +21529,25 @@ if (document.querySelector('.main_slider')) {
       1024: {
         slidesPerView: 4,
         spaceBetween: 40
+      }
+    }
+  });
+}
+
+if (document.querySelector('.page_slider')) {
+  var _mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.page_slider__wrap', {
+    slidesPerView: 4,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.page_slider__btn--next',
+      prevEl: '.page_slider__btn--prev'
+    },
+    breakpoints: {
+      320: {
+        spaceBetween: 0
+      },
+      768: {
+        spaceBetween: 23
       }
     }
   });

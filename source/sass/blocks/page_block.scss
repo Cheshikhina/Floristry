@@ -1,0 +1,138 @@
+$max_width_block:552px;
+
+.page_block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: calc(51.875% + 84px);
+  padding-right: 15px;
+
+  ul {
+    max-width: $max_width_block;
+  }
+
+  &::before {
+    @include before;
+    @include container(1920);
+    width: 51.875%;
+    max-width: 996px;
+    min-height: calc(100% - 30px*2);
+    left: 30px;
+    top: 30px;
+    border: 1px solid rgba($white, $opacity_02);
+    background-color: transparent;
+    z-index: 2;
+  }
+}
+
+.page_block__title {
+  @include page_block_title;
+  max-width: $max_width_block;
+  margin: 0;
+  margin-bottom: 50px;
+}
+
+.page_block__text {
+  @include page_block_text;
+  max-width: $max_width_block;
+  margin: 0;
+  margin-bottom: 50px;
+  text-shadow: 0 4px 4px rgba($black, 0.25);
+}
+
+.page_block__button {
+  display: flex;
+  max-width: 135px;
+  margin-bottom: 100px;
+}
+
+.page_block__link {
+  @include page_block_text;
+  display: flex;
+  align-items: center;
+  margin: 182px auto 45px;
+  margin-right: 0;
+  color: $white;
+
+  span {
+    display: flex;
+    margin-right: 29px;
+    transition: $transition;
+  }
+
+  svg {
+    width: 27px;
+    height: 27px;
+    fill: transparent;
+    transition: $transition;
+  }
+
+  &:active {
+    color: $black;
+
+    svg {
+      fill: $white;
+      opacity: $opacity;
+    }
+  }
+}
+
+.page_block__background {
+  position: absolute;
+  min-height: 100%;
+  width: 51.875%;
+  max-width: 996px;
+  top: 0;
+  left: 0;
+  background-position: 0 center;
+  z-index: -1;
+}
+
+.page_block__background--1 {
+  @include background("page1_background", "jpg", $accent_1, "true", "true");
+}
+
+.page_block__background--2 {
+  @include background("page2_background", "jpg", $accent_1, "true", "true");
+}
+
+.page_block__background--3 {
+  @include background("page3_background", "jpg", $accent_1, "true", "true");
+}
+
+.page_block__background--4 {
+  @include background("page4_background", "jpg", $accent_1, "true", "true");
+}
+
+@media (max-width: $tablet_max) {
+  .page_block {
+    margin-left: auto;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .page_block__background {
+    position: relative;
+    min-height: 518px;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .page_block__link:hover,
+  .page_block__link:focus {
+    color: $black;
+
+    span {
+      color: rgba($white, $opacity_06);
+    }
+
+    svg {
+      fill: $white;
+    }
+  }
+}
