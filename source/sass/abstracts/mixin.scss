@@ -229,14 +229,19 @@
     @include font($fs_45, $lh_50);
     color: $white;
 
+    @media (max-width: $tablet_max) {
+      @include font($fs_45, $lh_50);
+    }
+
     @media (max-width: $mobile_max) {
       @include font($fs_25, $lh_28);
+      max-width: 250px;
     }
   }
 }
 
 @mixin popup_title {
-  @include font($fs_20, $lh_22);
+  @include font($fs_20, $lh_32);
   font-weight: 400;
   letter-spacing: $ls_009;
   text-transform: uppercase;
@@ -244,11 +249,11 @@
   text-align: center;
 
   @media (max-width: $tablet_max) {
-    @include font($fs_30, $lh_33);
+    @include font($fs_30, $lh_42);
   }
 
   @media (max-width: $mobile_max) {
-    @include font($fs_20, $lh_22);
+    @include font($fs_20, $lh_32);
   }
 }
 

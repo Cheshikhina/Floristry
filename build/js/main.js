@@ -21534,7 +21534,7 @@ if (document.querySelector('.main_slider')) {
       768: {
         slidesPerView: 2,
         slidesPerGroup: 2,
-        spaceBetween: 8
+        spaceBetween: 10
       },
       1025: {
         slidesPerView: 4,

@@ -20,7 +20,7 @@
   width: 100%;
   max-width: 716px;
   min-height: 444px;
-  padding: 66px;
+  padding: 64px 66px;
   transform: translateY(-50px);
   opacity: 0;
   background-color: $accent_1;
@@ -36,8 +36,8 @@
 .modal__close {
   @include button;
   position: absolute;
-  top: 22px;
-  right: 24px;
+  top: 18px;
+  right: 19px;
   width: 32px;
   height: 32px;
   display: flex;
@@ -69,7 +69,7 @@
 .modal__title {
   @include popup_title;
   margin: 0;
-  margin-bottom: 28px;
+  margin-bottom: 46px;
   padding: 0 6px;
   font-weight: 400;
 }
@@ -123,16 +123,16 @@
     max-width: 464px;
     min-height: 640px;
     background-image: none;
-    padding: 104px 45px 78px;
+    padding: 100px 45px 78px;
   }
 
   .modal__close {
-    top: 40px;
-    right: 40px;
+    top: 35px;
+    right: 35px;
   }
 
   .modal__title {
-    margin-bottom: 48px;
+    margin: 0 10px 71px;
   }
 }
 
@@ -144,18 +144,19 @@
 
   .modal__content {
     max-width: 464px;
-    min-height: 640px;
+    width: calc(100% - 16px*2);
+    min-height: 425px;
     background-image: none;
-    padding: 62px 19px 52px;
+    padding: 58px 19px 52px;
   }
 
   .modal__close {
-    top: 20px;
-    right: 20px;
+    top: 14px;
+    right: 15px;
   }
 
   .modal__title {
-    margin-bottom: 28px;
+    margin-bottom: 47px;
   }
 }
 

@@ -68,14 +68,32 @@
     align-items: center;
     margin-bottom: 44px;
 
-      a+a {
-        margin-left: 0;
-        margin-top: 22px;
-      }
+    a+a {
+      margin-left: 0;
+      margin-top: 22px;
+    }
   }
 
   .footer--page {
     display: flex;
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .footer {
+    padding-bottom: 29px;
+
+    &::before {
+      margin-bottom: 30px;
+    }
+  }
+
+  .footer__menu {
+    margin-bottom: 46px;
+
+    a+a {
+      margin-top: 11px;
+    }
   }
 }
 

@@ -7,12 +7,6 @@
     min-height: 472px;
     box-shadow: 0 0 0 1px transparent inset;
     transition: $duration_03 $duration_03;
-
-    &:hover,
-    &:focus {
-      box-shadow: 0 0 0 1px rgba($white, $opacity_02) inset;
-      transition: $duration_03;
-    }
   }
 }
 
@@ -124,45 +118,6 @@
   transition: $duration_03 $duration_03;
 }
 
-.products__item:hover,
-.products__item:focus {
-  &::after {
-    height: 100%;
-    transition: $transition, height 0.3s;
-
-    // @media screen and (-ms-high-contrast: active),
-    // (-ms-high-contrast: none) {
-    //   transform: translate(0, -100%) translate(-50%, 100%);
-    // }
-
-  }
-
-  .products__number {
-    &::before {
-      left: calc(100% - 23px);
-      transition: $duration_03 $duration_03;
-    }
-
-    span {
-      &::before {
-        right: -1*rem(100);
-        transition: $duration_03 $duration_03;
-      }
-
-      &::after {
-        left: 0;
-        transition: $duration_03 $duration_03;
-      }
-    }
-  }
-
-  .products__btn {
-    margin-top: -12px;
-    margin-bottom: 21px;
-    transition: $duration_03;
-  }
-}
-
 @media (max-width: $tablet_max) {
   .products {
     margin-bottom: 18px;
@@ -173,7 +128,7 @@
   }
 
   .products__item {
-    min-height: 448px;
+    min-height: 450px;
   }
 
   .products__number {
@@ -190,5 +145,86 @@
 
   .products__title {
     margin-bottom: 25px;
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .products {
+    margin-bottom: 10px;
+
+    li {
+      min-height: 413px;
+    }
+  }
+
+  .products__item {
+    min-height: 393px;
+  }
+
+  .products__number {
+    top: 23px;
+
+    &::before {
+      left: calc(100% - 23px);
+    }
+
+    span {
+      &::before {
+        right: -1*rem(100);
+      }
+
+      &::after {
+        left: 0;
+      }
+    }
+  }
+
+  .products__title {
+    margin: 70px 1rem 31px;
+  }
+}
+
+@media (min-width: $no_mobile) {
+
+  .products__item:hover,
+  .products__item:focus {
+    &::after {
+      height: 100%;
+      transition: $transition, height 0.3s;
+    }
+
+    .products__number {
+      &::before {
+        left: calc(100% - 23px);
+        transition: $duration_03 $duration_03;
+      }
+
+      span {
+        &::before {
+          right: -1*rem(100);
+          transition: $duration_03 $duration_03;
+        }
+
+        &::after {
+          left: 0;
+          transition: $duration_03 $duration_03;
+        }
+      }
+    }
+
+    .products__btn {
+      margin-top: -12px;
+      margin-bottom: 21px;
+      transition: $duration_03;
+    }
+  }
+
+  .products li {
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 1px rgba($white, $opacity_02) inset;
+      transition: $duration_03;
+    }
   }
 }

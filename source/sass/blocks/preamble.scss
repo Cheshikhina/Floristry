@@ -44,7 +44,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 36px;
-  z-index: 101;
 
   li+li {
     margin-top: 21.5px;
@@ -128,7 +127,7 @@
 
 @media (max-width: $tablet_max) {
   .preamble {
-    padding-bottom: 56px;
+    padding-bottom: 55px;
 
     &::after {
       display: none;
@@ -163,12 +162,10 @@
     z-index: 1;
 
     li {
-      width: 55px;
-      height: 55px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background-color: $accent_1;
-      padding-left: 3px;
-      padding-top: 1px;
     }
 
     a {
@@ -246,8 +243,28 @@
 }
 
 @media (max-width: $mobile_max) {
+  .preamble {
+    padding-top: 0;
+    padding-bottom: 41px;
+    background-image: url("../img/preamble__mobile@1x.jpg");
+    background-color: $accent_1;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    @media (min-resolution: $retina_dpi),
+    (min-resolution: $retina_dppx) {
+      background-image: url("../img/preamble__mobile@2x.jpg");
+    }
+  }
+
   .preamble__box {
-    margin-bottom: 70px;
+    margin-bottom: 35px;
+  }
+
+  .preamble__title {
+    margin-top: 85px;
+    margin-bottom: 13px;
+    letter-spacing: $ls_015;
   }
 
   .preamble__socials {
@@ -265,6 +282,40 @@
 
     li+li {
       margin-left: rem(40);
+    }
+  }
+
+  .preamble__scroll {
+    height: 18px;
+
+    span {
+      height: 18px;
+
+      &::before,
+      &::after {
+        width: 9px;
+        bottom: 1px;
+      }
+
+      &::before {
+        left: 6.5px;
+      }
+
+      &::after {
+        right: 6.5px;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      span {
+        height: 25px;
+
+        &::before,
+        &::after {
+          bottom: -6px;
+        }
+      }
     }
   }
 }

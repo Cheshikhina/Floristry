@@ -12,7 +12,7 @@
 }
 
 .wrappper__header {
-  @include background("preamble", "jpg", $accent_1, "true", "true");
+  @include background("preamble", "jpg", $accent_1, "true");
   position: relative;
   display: flex;
   flex-direction: column;
@@ -40,18 +40,14 @@
   }
 }
 
-// .wrapper__content--page {
-//   @include container(1890, 15);
-//   background-size: auto 996px;
-//   background-position: 0 center;
-// }
-
-// .wrapper__content--page_1 {
-//   @include background("page1_background", "jpg", $accent_1, "true", "true");
-// }
-
 @media (max-width: $desktop_max) {
   .wrapper {
     @include container(1920);
+  }
+}
+
+@media (max-width: $mobile_max) {
+  .wrappper__header {
+    background-image: none;
   }
 }

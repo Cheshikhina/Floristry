@@ -45,7 +45,11 @@
 
 @media (max-width: $mobile_max) {
   .title {
+    align-self: flex-start;
+    text-align: left;
+
     &::after {
+      bottom: -23px;
       left: 0;
       transform: none;
     }

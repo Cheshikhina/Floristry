@@ -44,7 +44,16 @@
 }
 
 @media (max-width: $mobile_max) {
+  .catalog {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   .catalog__title {
-    margin-bottom: 20px;
+    max-width: 480px;
+    justify-content: flex-start;
+    margin: 0 auto 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

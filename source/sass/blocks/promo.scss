@@ -60,3 +60,28 @@
     margin-bottom: 17px;
   }
 }
+
+@media (max-width: $mobile_max) {
+  .promo {
+    max-width: 480px;
+    padding: 40px 16px 65px;
+  }
+
+  .promo__box {
+    align-items: flex-start;
+  }
+
+  .promo__title {
+    margin-right: 5%;
+    margin-bottom: 43px;
+  }
+
+  .promo__text {
+    text-align: left;
+    margin-bottom: 42px;
+  }
+
+  .promo__img {
+    margin-bottom: 20px;
+  }
+}

@@ -98,8 +98,9 @@
   width: 35px;
   height: 35px;
   padding: 0;
-  margin-right: 0;
+  margin-right: 1px;
   margin-left: auto;
+  margin-top: 20px;
   padding-left: 5px;
   z-index: 101;
 
@@ -110,6 +111,7 @@
 
   &::before,
   &::after {
+    width: 38px;
     top: 50%;
   }
 
@@ -121,27 +123,44 @@
     transform: rotate(45deg) translateY(-50%);
   }
 
-  &~.header__logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 101;
-  }
-
   &~.header__menu {
-    padding-top: 424px;
+    padding-top: 168px;
+    padding-bottom: 50px;
+    overflow-y: auto;
     opacity: 1;
     z-index: 100;
 
     a {
       @include menu_link;
+      max-width: 435px;
       transition: $transition;
+
+      &:hover,
+      &:focus {
+        @include menu_link("hover");
+      }
     }
 
     a+a {
-      margin-top: 76px;
+      margin-top: 81px;
+    }
+
+    .header__logo--in_menu {
+      align-self: center;
+      margin-bottom: 123px;
+    }
+
+    .header__socials {
+      position: relative;
+      margin-top: -66px;
+      left: -44.4%;
+
+      li+li {
+        margin-top: 22px;
+      }
     }
   }
+
 }
 
 @media (max-width: $tablet_max) {
@@ -174,13 +193,79 @@
   .header__logo {
     margin-top: 20px;
   }
+
+  .header__btn--open {
+    margin-right: -10px;
+    margin-top: 8px;
+
+    &::before,
+    &::after {
+      width: 43px;
+      left: 8px;
+    }
+
+    &~.header__menu {
+      padding-top: 172px;
+
+      a+a {
+        margin-top: 70px;
+      }
+
+      .header__socials {
+        display: none;
+      }
+
+      .header__logo--in_menu {
+        margin-bottom: 80px;
+      }
+    }
+  }
 }
 
 @media (max-width: $mobile_max) {
+  .header {
+    min-height: 64px;
+    margin-top: 0;
+    padding: 13px 30px;
+    background-color: $accent_1;
+  }
+
   .header__logo {
+    margin-top: 2px;
+
+    p {
+      @include font(12, 13);
+    }
+
     svg {
       width: 83px;
       height: 15px;
+    }
+  }
+
+  .header__btn {
+    height: 36px;
+  }
+
+  .header__btn--open {
+    margin-right: -5px;
+    margin-top: 5px;
+
+    &~.header__menu {
+      padding-top: 104px;
+
+      a {
+        max-width: 200px;
+      }
+
+      a+a {
+        margin-top: 55px;
+      }
+
+      .header__logo--in_menu {
+        margin-left: -13px;
+        margin-bottom: 19px;
+      }
     }
   }
 }
@@ -194,10 +279,5 @@
     &::after {
       top: calc(50% - 0.5px);
     }
-  }
-
-  .header__btn--open~.header__menu a:hover,
-  .header__btn--open~.header__menu a:focus {
-    @include menu_link("hover");
   }
 }
