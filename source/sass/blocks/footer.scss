@@ -8,7 +8,7 @@
   align-items: center;
   margin-top: auto;
   padding-top: 100px;
-  padding-bottom: 30px;
+  padding-bottom: 29px;
   overflow: hidden;
 
   &::before {
@@ -52,9 +52,31 @@
 }
 
 @media (max-width: $tablet_max) {
-.footer--page {
-  display: flex;
-}
+  .footer {
+    padding-top: 35px;
+    padding-bottom: 38px;
+
+    &::before {
+      margin-bottom: 41px;
+    }
+  }
+
+  .footer__menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 44px;
+
+      a+a {
+        margin-left: 0;
+        margin-top: 22px;
+      }
+  }
+
+  .footer--page {
+    display: flex;
+  }
 }
 
 @media (min-width: $no_mobile) {

@@ -19,6 +19,7 @@
   border: 1px solid $white;
   background-color: rgba($black, $opacity_04);
   z-index: 20;
+  cursor: pointer;
   transition: $transition;
 
   &::before {

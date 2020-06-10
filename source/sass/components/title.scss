@@ -26,9 +26,19 @@
 
 @media (max-width: $tablet_max) {
   .title {
+    text-align: center;
+    align-self: center;
+
     &::after {
       left: 50%;
       transform: translateX(-50%);
+    }
+  }
+
+  .title--catalog {
+    &::after {
+      left: calc(50% - 13px);
+      bottom: -23px;
     }
   }
 }

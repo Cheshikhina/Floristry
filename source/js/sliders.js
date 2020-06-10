@@ -22,7 +22,7 @@ if (document.querySelector('.main_slider')) {
         slidesPerGroup: 2,
         spaceBetween: 8,
       },
-      1024: {
+      1025: {
         slidesPerView: 4,
         spaceBetween: 40,
       },
@@ -31,7 +31,7 @@ if (document.querySelector('.main_slider')) {
 }
 
 if (document.querySelector('.page_slider')) {
-  const mainSlider = new Swiper('.page_slider__wrap', {
+  const pageSlider = new Swiper('.page_slider__wrap', {
     slidesPerView: 4,
     spaceBetween: 20,
     navigation: {

@@ -1,11 +1,15 @@
 const overlay = {};
 
 overlay.scrollY = 0;
-overlay.mainFunction = () => {
+overlay.mainFunction = (isMainPage = false) => {
   const body = document.querySelector('body');
 
   function getScrollbarWidth() {
     let div = document.createElement('div');
+
+    if (overlay.scrollY === 0 && !isMainPage) {
+      return 0;
+    }
 
     div.style.overflowY = 'scroll';
     div.style.width = '50px';

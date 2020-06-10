@@ -21315,7 +21315,11 @@ var modal = function modal(selectorTrigger) {
   var KeyCode = {
     ESC: 27
   },
-      TIMEOUT_HIDE_POPUP = 600,
+      Timeout = {
+    now: 1,
+    quickly: 300,
+    long: 600
+  },
       buttons = document.querySelectorAll(selectorTrigger),
       body = document.querySelector('body');
 
@@ -21340,7 +21344,7 @@ var modal = function modal(selectorTrigger) {
 
   function openModal(evt) {
     evt.preventDefault();
-    _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction();
+    evt.target.classList.contains('preamble__btn') ? _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction(true) : _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction();
 
     if (idTemplate) {
       var similarPopup = document.querySelector(idTemplate).content.querySelector('.modal');
@@ -21362,7 +21366,7 @@ var modal = function modal(selectorTrigger) {
     setTimeout(function () {
       modalWrap.classList.add('modal--open');
       modalInner.classList.add('modal__content--open');
-    }, 1);
+    }, Timeout.now);
     modalBtnClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', closeModalEsc);
     document.addEventListener('click', closeModalHandler);
@@ -21390,7 +21394,7 @@ var modal = function modal(selectorTrigger) {
       _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction();
       document.removeEventListener('keydown', closeModalEsc);
       document.removeEventListener('click', closeModalHandler);
-    }, 300);
+    }, Timeout.quickly);
   }
 
   function closeModalContent() {
@@ -21399,7 +21403,7 @@ var modal = function modal(selectorTrigger) {
     modalInner.classList.remove('modal__content--open');
     setTimeout(function () {
       modalWrap.removeChild(modalInner);
-    }, TIMEOUT_HIDE_POPUP);
+    }, Timeout.long);
   }
 
   if (buttons.length > 0) {
@@ -21426,10 +21430,16 @@ var overlay = {};
 overlay.scrollY = 0;
 
 overlay.mainFunction = function () {
+  var isMainPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   var body = document.querySelector('body');
 
   function getScrollbarWidth() {
     var div = document.createElement('div');
+
+    if (overlay.scrollY === 0 && !isMainPage) {
+      return 0;
+    }
+
     div.style.overflowY = 'scroll';
     div.style.width = '50px';
     div.style.height = '50px';
@@ -21526,7 +21536,7 @@ if (document.querySelector('.main_slider')) {
         slidesPerGroup: 2,
         spaceBetween: 8
       },
-      1024: {
+      1025: {
         slidesPerView: 4,
         spaceBetween: 40
       }
@@ -21535,7 +21545,7 @@ if (document.querySelector('.main_slider')) {
 }
 
 if (document.querySelector('.page_slider')) {
-  var _mainSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.page_slider__wrap', {
+  var pageSlider = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.page_slider__wrap', {
     slidesPerView: 4,
     spaceBetween: 20,
     navigation: {

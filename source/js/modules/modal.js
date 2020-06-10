@@ -5,11 +5,14 @@ import itemInPopup from './item-in-popup';
 
 const modal = (selectorTrigger, idTemplate = false) => {
   let modalWrap, modalInner, modalBtnClose, modalForm;
-
   const KeyCode = {
       ESC: 27,
     },
-    TIMEOUT_HIDE_POPUP = 600,
+    Timeout = {
+      now: 1,
+      quickly: 300,
+      long: 600,
+    },
     buttons = document.querySelectorAll(selectorTrigger),
     body = document.querySelector('body');
 
@@ -34,7 +37,7 @@ const modal = (selectorTrigger, idTemplate = false) => {
 
   function openModal(evt) {
     evt.preventDefault();
-    overlay.mainFunction();
+    evt.target.classList.contains('preamble__btn') ? overlay.mainFunction(true) : overlay.mainFunction();
 
     if (idTemplate) {
       let similarPopup = document.querySelector(idTemplate)
@@ -59,7 +62,7 @@ const modal = (selectorTrigger, idTemplate = false) => {
     setTimeout(function () {
       modalWrap.classList.add('modal--open');
       modalInner.classList.add('modal__content--open');
-    }, 1);
+    }, Timeout.now);
 
     modalBtnClose.addEventListener('click', closeModal);
     document.addEventListener('keydown', closeModalEsc);
@@ -90,7 +93,7 @@ const modal = (selectorTrigger, idTemplate = false) => {
       overlay.mainFunction();
       document.removeEventListener('keydown', closeModalEsc);
       document.removeEventListener('click', closeModalHandler);
-    }, 300);
+    }, Timeout.quickly);
   }
 
   function closeModalContent() {
@@ -100,7 +103,7 @@ const modal = (selectorTrigger, idTemplate = false) => {
 
     setTimeout(function () {
       modalWrap.removeChild(modalInner);
-    }, TIMEOUT_HIDE_POPUP);
+    }, Timeout.long);
   }
 
   if (buttons.length > 0) {
@@ -109,6 +112,5 @@ const modal = (selectorTrigger, idTemplate = false) => {
     });
   }
 };
-
 
 export default modal;

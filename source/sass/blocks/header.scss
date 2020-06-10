@@ -145,10 +145,34 @@
 }
 
 @media (max-width: $tablet_max) {
+  .header {
+    margin-top: 18px;
+  }
+
   .header__btn {
+    height: 50px;
+
     span {
       @include visually_hidden;
     }
+
+    &::before,
+    &::after {
+      width: 35px;
+      left: 5px;
+    }
+
+    &::before {
+      top: calc(50% - 5px);
+    }
+
+    &::after {
+      top: calc(50% + 5px);
+    }
+  }
+
+  .header__logo {
+    margin-top: 20px;
   }
 }
 

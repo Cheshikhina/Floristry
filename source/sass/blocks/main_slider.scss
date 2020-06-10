@@ -1,7 +1,10 @@
 .main_slider {
-  @include container(1600);
+  @include container(1530);
+  padding-left: 10px;
 
   @media (max-width: $tablet_max) {
+    padding: 0 15px;
+
     .main_slider__pagination {
       display: flex;
       justify-content: center;
