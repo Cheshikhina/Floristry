@@ -1,5 +1,14 @@
 .page_slider {
   position: relative;
+  max-width: 552px;
+  width: 90%;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 .page_slider__wrap {
@@ -58,7 +67,19 @@
   opacity: 0;
 }
 
+@media (max-width: $tablet_max) {
+  .page_slider {
+    max-width: 100%;
+    width: 84.5%;
+  }
+}
+
 @media (max-width: $mobile_max) {
+  .page_slider {
+    max-width: calc(100% - 20px);
+    width: 100%;
+  }
+
   .page_slider__btn {
     display: none;
   }

@@ -130,7 +130,7 @@
     opacity: 1;
     z-index: 100;
 
-    a {
+    a:not(.header__logo):not(.header__socials_link) {
       @include menu_link;
       max-width: 435px;
       transition: $transition;
@@ -160,7 +160,6 @@
       }
     }
   }
-
 }
 
 @media (max-width: $tablet_max) {

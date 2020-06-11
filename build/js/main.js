@@ -21344,7 +21344,7 @@ var modal = function modal(selectorTrigger) {
 
   function openModal(evt) {
     evt.preventDefault();
-    evt.target.classList.contains('preamble__btn') ? _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction(true) : _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction();
+    evt.target.classList.contains('trigger') ? _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction(false) : _overlay__WEBPACK_IMPORTED_MODULE_3__["default"].mainFunction();
 
     if (idTemplate) {
       var similarPopup = document.querySelector(idTemplate).content.querySelector('.modal');
@@ -21430,13 +21430,13 @@ var overlay = {};
 overlay.scrollY = 0;
 
 overlay.mainFunction = function () {
-  var isMainPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var isPage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   var body = document.querySelector('body');
 
   function getScrollbarWidth() {
     var div = document.createElement('div');
 
-    if (overlay.scrollY === 0 && !isMainPage) {
+    if (overlay.scrollY === 0 && !isPage) {
       return 0;
     }
 
@@ -21554,7 +21554,8 @@ if (document.querySelector('.page_slider')) {
     },
     breakpoints: {
       320: {
-        spaceBetween: 0
+        slidesPerView: 3.5,
+        spaceBetween: 15
       },
       768: {
         spaceBetween: 23

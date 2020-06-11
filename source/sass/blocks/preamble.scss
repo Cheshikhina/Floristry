@@ -61,12 +61,12 @@
     width: 36px;
     height: 56px;
     background-color: rgba($scroll_btn_bg, $opacity_03);
-    border: 0.7px solid $white;
+    border: 1px solid $white;
     border-radius: 22px;
 
     &::before {
       @include before;
-      width: 0.7px;
+      width: 1px;
       height: 9.5px;
       left: 50%;
       transform: translateX(-50%);
@@ -265,6 +265,10 @@
     margin-top: 85px;
     margin-bottom: 13px;
     letter-spacing: $ls_015;
+
+    br {
+      display: inline-block;
+    }
   }
 
   .preamble__socials {

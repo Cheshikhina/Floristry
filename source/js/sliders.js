@@ -40,7 +40,8 @@ if (document.querySelector('.page_slider')) {
     },
     breakpoints: {
       320: {
-        spaceBetween: 0,
+        slidesPerView: 3.5,
+        spaceBetween: 15,
       },
       768: {
         spaceBetween: 23,

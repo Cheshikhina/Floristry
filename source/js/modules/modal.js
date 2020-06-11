@@ -37,7 +37,7 @@ const modal = (selectorTrigger, idTemplate = false) => {
 
   function openModal(evt) {
     evt.preventDefault();
-    evt.target.classList.contains('preamble__btn') ? overlay.mainFunction(true) : overlay.mainFunction();
+    evt.target.classList.contains('trigger') ? overlay.mainFunction(false) : overlay.mainFunction();
 
     if (idTemplate) {
       let similarPopup = document.querySelector(idTemplate)
