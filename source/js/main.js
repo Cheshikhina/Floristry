@@ -1,6 +1,7 @@
 import 'svgxuse';
 import 'lazysizes';
-import './sliders';
+import './modules/sliders';
+import './forIE/polyfills';
 import common from './modules/common';
 import scroll from './modules/scroll';
 import menu from './modules/menu';
@@ -16,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
   modal('.page_slider__img');
 
   if (document.querySelectorAll('form').length) {
-    document.querySelectorAll('form').forEach(item => {
+    document.querySelectorAll('form').forEach((item) => {
       form(item);
     });
   }

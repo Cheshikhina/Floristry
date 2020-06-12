@@ -1329,6 +1329,34 @@ module.exports = fails(function () {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/inherit-if-required.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/internals/inherit-if-required.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
+var setPrototypeOf = __webpack_require__(/*! ../internals/object-set-prototype-of */ "./node_modules/core-js/internals/object-set-prototype-of.js");
+
+// makes subclassing work correct for wrapped built-ins
+module.exports = function ($this, dummy, Wrapper) {
+  var NewTarget, NewTargetPrototype;
+  if (
+    // it can work only with native `setPrototypeOf`
+    setPrototypeOf &&
+    // we haven't completely correct pre-ES6 way for getting `new.target`, so use this
+    typeof (NewTarget = dummy.constructor) == 'function' &&
+    NewTarget !== Wrapper &&
+    isObject(NewTargetPrototype = NewTarget.prototype) &&
+    NewTargetPrototype !== Wrapper.prototype
+  ) setPrototypeOf($this, NewTargetPrototype);
+  return $this;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/inspect-source.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/internals/inspect-source.js ***!
@@ -2432,6 +2460,37 @@ module.exports = function (key, value) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/set-species.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/core-js/internals/set-species.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "./node_modules/core-js/internals/get-built-in.js");
+var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js");
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "./node_modules/core-js/internals/well-known-symbol.js");
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+
+var SPECIES = wellKnownSymbol('species');
+
+module.exports = function (CONSTRUCTOR_NAME) {
+  var Constructor = getBuiltIn(CONSTRUCTOR_NAME);
+  var defineProperty = definePropertyModule.f;
+
+  if (DESCRIPTORS && Constructor && !Constructor[SPECIES]) {
+    defineProperty(Constructor, SPECIES, {
+      configurable: true,
+      get: function () { return this; }
+    });
+  }
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/set-to-string-tag.js":
 /*!*************************************************************!*\
   !*** ./node_modules/core-js/internals/set-to-string-tag.js ***!
@@ -3526,6 +3585,101 @@ var toString = __webpack_require__(/*! ../internals/object-to-string */ "./node_
 if (!TO_STRING_TAG_SUPPORT) {
   redefine(Object.prototype, 'toString', toString, { unsafe: true });
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es.regexp.constructor.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/core-js/modules/es.regexp.constructor.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var isForced = __webpack_require__(/*! ../internals/is-forced */ "./node_modules/core-js/internals/is-forced.js");
+var inheritIfRequired = __webpack_require__(/*! ../internals/inherit-if-required */ "./node_modules/core-js/internals/inherit-if-required.js");
+var defineProperty = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js").f;
+var getOwnPropertyNames = __webpack_require__(/*! ../internals/object-get-own-property-names */ "./node_modules/core-js/internals/object-get-own-property-names.js").f;
+var isRegExp = __webpack_require__(/*! ../internals/is-regexp */ "./node_modules/core-js/internals/is-regexp.js");
+var getFlags = __webpack_require__(/*! ../internals/regexp-flags */ "./node_modules/core-js/internals/regexp-flags.js");
+var stickyHelpers = __webpack_require__(/*! ../internals/regexp-sticky-helpers */ "./node_modules/core-js/internals/regexp-sticky-helpers.js");
+var redefine = __webpack_require__(/*! ../internals/redefine */ "./node_modules/core-js/internals/redefine.js");
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+var setInternalState = __webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js").set;
+var setSpecies = __webpack_require__(/*! ../internals/set-species */ "./node_modules/core-js/internals/set-species.js");
+var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "./node_modules/core-js/internals/well-known-symbol.js");
+
+var MATCH = wellKnownSymbol('match');
+var NativeRegExp = global.RegExp;
+var RegExpPrototype = NativeRegExp.prototype;
+var re1 = /a/g;
+var re2 = /a/g;
+
+// "new" should create a new object, old webkit bug
+var CORRECT_NEW = new NativeRegExp(re1) !== re1;
+
+var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y;
+
+var FORCED = DESCRIPTORS && isForced('RegExp', (!CORRECT_NEW || UNSUPPORTED_Y || fails(function () {
+  re2[MATCH] = false;
+  // RegExp constructor can alter flags and IsRegExp works correct with @@match
+  return NativeRegExp(re1) != re1 || NativeRegExp(re2) == re2 || NativeRegExp(re1, 'i') != '/a/i';
+})));
+
+// `RegExp` constructor
+// https://tc39.github.io/ecma262/#sec-regexp-constructor
+if (FORCED) {
+  var RegExpWrapper = function RegExp(pattern, flags) {
+    var thisIsRegExp = this instanceof RegExpWrapper;
+    var patternIsRegExp = isRegExp(pattern);
+    var flagsAreUndefined = flags === undefined;
+    var sticky;
+
+    if (!thisIsRegExp && patternIsRegExp && pattern.constructor === RegExpWrapper && flagsAreUndefined) {
+      return pattern;
+    }
+
+    if (CORRECT_NEW) {
+      if (patternIsRegExp && !flagsAreUndefined) pattern = pattern.source;
+    } else if (pattern instanceof RegExpWrapper) {
+      if (flagsAreUndefined) flags = getFlags.call(pattern);
+      pattern = pattern.source;
+    }
+
+    if (UNSUPPORTED_Y) {
+      sticky = !!flags && flags.indexOf('y') > -1;
+      if (sticky) flags = flags.replace(/y/g, '');
+    }
+
+    var result = inheritIfRequired(
+      CORRECT_NEW ? new NativeRegExp(pattern, flags) : NativeRegExp(pattern, flags),
+      thisIsRegExp ? this : RegExpPrototype,
+      RegExpWrapper
+    );
+
+    if (UNSUPPORTED_Y && sticky) setInternalState(result, { sticky: sticky });
+
+    return result;
+  };
+  var proxy = function (key) {
+    key in RegExpWrapper || defineProperty(RegExpWrapper, key, {
+      configurable: true,
+      get: function () { return NativeRegExp[key]; },
+      set: function (it) { NativeRegExp[key] = it; }
+    });
+  };
+  var keys = getOwnPropertyNames(NativeRegExp);
+  var index = 0;
+  while (keys.length > index) proxy(keys[index++]);
+  RegExpPrototype.constructor = RegExpWrapper;
+  RegExpWrapper.prototype = RegExpPrototype;
+  redefine(global, 'RegExp', RegExpWrapper);
+}
+
+// https://tc39.github.io/ecma262/#sec-get-regexp-@@species
+setSpecies('RegExp');
 
 
 /***/ }),
@@ -20873,6 +21027,241 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./node_modules/webpack/buildin/harmony-module.js":
+/*!*******************************************!*\
+  !*** (webpack)/buildin/harmony-module.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if (!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if (!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+
+/***/ "./source/js/forIE/polyfills.js":
+/*!**************************************!*\
+  !*** ./source/js/forIE/polyfills.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.symbol */ "./node_modules/core-js/modules/es.symbol.js");
+/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.symbol.description */ "./node_modules/core-js/modules/es.symbol.description.js");
+/* harmony import */ var core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.symbol.iterator */ "./node_modules/core-js/modules/es.symbol.iterator.js");
+/* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/es.array.iterator */ "./node_modules/core-js/modules/es.array.iterator.js");
+/* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_join__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.join */ "./node_modules/core-js/modules/es.array.join.js");
+/* harmony import */ var core_js_modules_es_array_join__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_join__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! core-js/modules/es.object.to-string */ "./node_modules/core-js/modules/es.object.to-string.js");
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_regexp_constructor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! core-js/modules/es.regexp.constructor */ "./node_modules/core-js/modules/es.regexp.constructor.js");
+/* harmony import */ var core_js_modules_es_regexp_constructor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_constructor__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! core-js/modules/es.regexp.exec */ "./node_modules/core-js/modules/es.regexp.exec.js");
+/* harmony import */ var core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_exec__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! core-js/modules/es.regexp.to-string */ "./node_modules/core-js/modules/es.regexp.to-string.js");
+/* harmony import */ var core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_regexp_to_string__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! core-js/modules/es.string.iterator */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! core-js/modules/web.dom-collections.iterator */ "./node_modules/core-js/modules/web.dom-collections.iterator.js");
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__);
+
+
+
+
+
+
+
+
+
+
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* eslint-disable */
+if (!('remove' in Element.prototype)) {
+  Element.prototype.remove = function () {
+    if (this.parentNode) {
+      this.parentNode.removeChild(this);
+    }
+  };
+} //  scroll-polyfill
+
+
+!function () {
+  "use strict";
+
+  function o() {
+    var o = window,
+        t = document;
+
+    if (!("scrollBehavior" in t.documentElement.style && !0 !== o.__forceSmoothScrollPolyfill__)) {
+      var l,
+          e = o.HTMLElement || o.Element,
+          r = 468,
+          i = {
+        scroll: o.scroll || o.scrollTo,
+        scrollBy: o.scrollBy,
+        elementScroll: e.prototype.scroll || n,
+        scrollIntoView: e.prototype.scrollIntoView
+      },
+          s = o.performance && o.performance.now ? o.performance.now.bind(o.performance) : Date.now,
+          c = (l = o.navigator.userAgent, new RegExp(["MSIE ", "Trident/", "Edge/"].join("|")).test(l) ? 1 : 0);
+      o.scroll = o.scrollTo = function () {
+        void 0 !== arguments[0] && (!0 !== f(arguments[0]) ? h.call(o, t.body, void 0 !== arguments[0].left ? ~~arguments[0].left : o.scrollX || o.pageXOffset, void 0 !== arguments[0].top ? ~~arguments[0].top : o.scrollY || o.pageYOffset) : i.scroll.call(o, void 0 !== arguments[0].left ? arguments[0].left : "object" != _typeof(arguments[0]) ? arguments[0] : o.scrollX || o.pageXOffset, void 0 !== arguments[0].top ? arguments[0].top : void 0 !== arguments[1] ? arguments[1] : o.scrollY || o.pageYOffset));
+      }, o.scrollBy = function () {
+        void 0 !== arguments[0] && (f(arguments[0]) ? i.scrollBy.call(o, void 0 !== arguments[0].left ? arguments[0].left : "object" != _typeof(arguments[0]) ? arguments[0] : 0, void 0 !== arguments[0].top ? arguments[0].top : void 0 !== arguments[1] ? arguments[1] : 0) : h.call(o, t.body, ~~arguments[0].left + (o.scrollX || o.pageXOffset), ~~arguments[0].top + (o.scrollY || o.pageYOffset)));
+      }, e.prototype.scroll = e.prototype.scrollTo = function () {
+        if (void 0 !== arguments[0]) if (!0 !== f(arguments[0])) {
+          var o = arguments[0].left,
+              t = arguments[0].top;
+          h.call(this, this, void 0 === o ? this.scrollLeft : ~~o, void 0 === t ? this.scrollTop : ~~t);
+        } else {
+          if ("number" == typeof arguments[0] && void 0 === arguments[1]) throw new SyntaxError("Value could not be converted");
+          i.elementScroll.call(this, void 0 !== arguments[0].left ? ~~arguments[0].left : "object" != _typeof(arguments[0]) ? ~~arguments[0] : this.scrollLeft, void 0 !== arguments[0].top ? ~~arguments[0].top : void 0 !== arguments[1] ? ~~arguments[1] : this.scrollTop);
+        }
+      }, e.prototype.scrollBy = function () {
+        void 0 !== arguments[0] && (!0 !== f(arguments[0]) ? this.scroll({
+          left: ~~arguments[0].left + this.scrollLeft,
+          top: ~~arguments[0].top + this.scrollTop,
+          behavior: arguments[0].behavior
+        }) : i.elementScroll.call(this, void 0 !== arguments[0].left ? ~~arguments[0].left + this.scrollLeft : ~~arguments[0] + this.scrollLeft, void 0 !== arguments[0].top ? ~~arguments[0].top + this.scrollTop : ~~arguments[1] + this.scrollTop));
+      }, e.prototype.scrollIntoView = function () {
+        if (!0 !== f(arguments[0])) {
+          var l = function (o) {
+            for (; o !== t.body && !1 === (e = p(l = o, "Y") && a(l, "Y"), r = p(l, "X") && a(l, "X"), e || r);) {
+              o = o.parentNode || o.host;
+            }
+
+            var l, e, r;
+            return o;
+          }(this),
+              e = l.getBoundingClientRect(),
+              r = this.getBoundingClientRect();
+
+          l !== t.body ? (h.call(this, l, l.scrollLeft + r.left - e.left, l.scrollTop + r.top - e.top), "fixed" !== o.getComputedStyle(l).position && o.scrollBy({
+            left: e.left,
+            top: e.top,
+            behavior: "smooth"
+          })) : o.scrollBy({
+            left: r.left,
+            top: r.top,
+            behavior: "smooth"
+          });
+        } else i.scrollIntoView.call(this, void 0 === arguments[0] || arguments[0]);
+      };
+    }
+
+    function n(o, t) {
+      this.scrollLeft = o, this.scrollTop = t;
+    }
+
+    function f(o) {
+      if (null === o || "object" != _typeof(o) || void 0 === o.behavior || "auto" === o.behavior || "instant" === o.behavior) return !0;
+      if ("object" == _typeof(o) && "smooth" === o.behavior) return !1;
+      throw new TypeError("behavior member of ScrollOptions " + o.behavior + " is not a valid value for enumeration ScrollBehavior.");
+    }
+
+    function p(o, t) {
+      return "Y" === t ? o.clientHeight + c < o.scrollHeight : "X" === t ? o.clientWidth + c < o.scrollWidth : void 0;
+    }
+
+    function a(t, l) {
+      var e = o.getComputedStyle(t, null)["overflow" + l];
+      return "auto" === e || "scroll" === e;
+    }
+
+    function d(t) {
+      var l,
+          e,
+          i,
+          c,
+          n = (s() - t.startTime) / r;
+      c = n = n > 1 ? 1 : n, l = .5 * (1 - Math.cos(Math.PI * c)), e = t.startX + (t.x - t.startX) * l, i = t.startY + (t.y - t.startY) * l, t.method.call(t.scrollable, e, i), e === t.x && i === t.y || o.requestAnimationFrame(d.bind(o, t));
+    }
+
+    function h(l, e, r) {
+      var c,
+          f,
+          p,
+          a,
+          h = s();
+      l === t.body ? (c = o, f = o.scrollX || o.pageXOffset, p = o.scrollY || o.pageYOffset, a = i.scroll) : (c = l, f = l.scrollLeft, p = l.scrollTop, a = n), d({
+        scrollable: c,
+        method: a,
+        startTime: h,
+        startX: f,
+        startY: p,
+        x: e,
+        y: r
+      });
+    }
+  }
+
+  "object" == (typeof exports === "undefined" ? "undefined" : _typeof(exports)) && "undefined" != typeof module ? module.exports = {
+    polyfill: o
+  } : o();
+}();
+/* POLYFILL */
+
+(function templatePolyfill(d) {
+  if ('content' in d.createElement('template')) {
+    return false;
+  }
+
+  var qPlates = d.getElementsByTagName('template'),
+      plateLen = qPlates.length,
+      elPlate,
+      qContent,
+      contentLen,
+      docContent;
+
+  for (var x = 0; x < plateLen; ++x) {
+    elPlate = qPlates[x];
+    qContent = elPlate.childNodes;
+    contentLen = qContent.length;
+    docContent = d.createDocumentFragment();
+
+    while (qContent[0]) {
+      docContent.appendChild(qContent[0]);
+    }
+
+    elPlate.content = docContent;
+  }
+})(document);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/webpack/buildin/harmony-module.js */ "./node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
 /***/ "./source/js/main.js":
 /*!***************************!*\
   !*** ./source/js/main.js ***!
@@ -20890,12 +21279,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svgxuse__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(svgxuse__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lazysizes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lazysizes */ "./node_modules/lazysizes/lazysizes.js");
 /* harmony import */ var lazysizes__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lazysizes__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _sliders__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sliders */ "./source/js/sliders.js");
-/* harmony import */ var _modules_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/common */ "./source/js/modules/common.js");
-/* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/scroll */ "./source/js/modules/scroll.js");
-/* harmony import */ var _modules_menu__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/menu */ "./source/js/modules/menu.js");
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/modal */ "./source/js/modules/modal.js");
-/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/form */ "./source/js/modules/form.js");
+/* harmony import */ var _modules_sliders__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/sliders */ "./source/js/modules/sliders.js");
+/* harmony import */ var _forIE_polyfills__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forIE/polyfills */ "./source/js/forIE/polyfills.js");
+/* harmony import */ var _modules_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/common */ "./source/js/modules/common.js");
+/* harmony import */ var _modules_scroll__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/scroll */ "./source/js/modules/scroll.js");
+/* harmony import */ var _modules_menu__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/menu */ "./source/js/modules/menu.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/modal */ "./source/js/modules/modal.js");
+/* harmony import */ var _modules_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/form */ "./source/js/modules/form.js");
+
 
 
 
@@ -20907,16 +21298,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () {
-  Object(_modules_common__WEBPACK_IMPORTED_MODULE_5__["default"])();
-  Object(_modules_scroll__WEBPACK_IMPORTED_MODULE_6__["default"])();
-  Object(_modules_menu__WEBPACK_IMPORTED_MODULE_7__["default"])('.header__btn');
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('[data-modal="open_popup"]', '#popup');
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('.trigger', '#popup');
-  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_8__["default"])('.page_slider__img');
+  Object(_modules_common__WEBPACK_IMPORTED_MODULE_6__["default"])();
+  Object(_modules_scroll__WEBPACK_IMPORTED_MODULE_7__["default"])();
+  Object(_modules_menu__WEBPACK_IMPORTED_MODULE_8__["default"])('.header__btn');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_9__["default"])('[data-modal="open_popup"]', '#popup');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_9__["default"])('.trigger', '#popup');
+  Object(_modules_modal__WEBPACK_IMPORTED_MODULE_9__["default"])('.page_slider__img');
 
   if (document.querySelectorAll('form').length) {
     document.querySelectorAll('form').forEach(function (item) {
-      Object(_modules_form__WEBPACK_IMPORTED_MODULE_9__["default"])(item);
+      Object(_modules_form__WEBPACK_IMPORTED_MODULE_10__["default"])(item);
     });
   }
 });
@@ -21040,7 +21431,6 @@ var form = function form(formNode) {
   var closeModalContent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   var inputs = formNode.querySelectorAll('input'),
       successMessages = ['Форма отправлена!', 'Мы свяжемся с вами в ближайшее время'],
-      submitButton = formNode.querySelector('[type="submit"]'),
       URL = 'http://httpbin.org/post',
       KeyCode = {
     ESC: 27
@@ -21099,11 +21489,14 @@ var form = function form(formNode) {
   };
 
   var validateInput = function validateInput(input) {
-    var lengthPhone = 18;
+    var lengthPhone = {
+      current: 11,
+      full: 18
+    };
 
     if (input.value.trim() === '') {
       return 'Заполните данное поле';
-    } else if (isInputPhone(input) & input.value.length < lengthPhone) {
+    } else if (isInputPhone(input) && (input.value.length < lengthPhone.full && input.value.substring(0, 1) === '+' || input.value.length < lengthPhone.current && input.value.substring(0, 1) === '7')) {
       return 'Введите корректный номер телефона';
     }
 
@@ -21191,10 +21584,17 @@ var form = function form(formNode) {
   };
 
   var createErrorMessage = function createErrorMessage(errorText) {
+    if (formNode.querySelector('.form__error_message')) {
+      return;
+    }
+
     var errorMessage = document.createElement('p');
-    errorMessage.classList.add('form__error-message');
+    errorMessage.classList.add('form__error_message');
     errorMessage.textContent = errorText;
-    submitButton.insertAdjacentElement('beforebegin', errorMessage);
+    formNode.appendChild(errorMessage);
+    setTimeout(function () {
+      formNode.querySelector('.form__error_message').remove();
+    }, 4200);
   };
 
   var submitForm = function submitForm(evt) {
@@ -21207,7 +21607,11 @@ var form = function form(formNode) {
     collapsesPhoneValue();
     var data = new FormData(formNode);
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+
+    xhr.onloadstart = function (eventt) {
+      xhr.responseType = "json";
+    };
+
     xhr.open('POST', URL);
     xhr.send(data);
     xhr.addEventListener('load', function (e) {
@@ -21502,10 +21906,10 @@ var scroll = function scroll() {
 
 /***/ }),
 
-/***/ "./source/js/sliders.js":
-/*!******************************!*\
-  !*** ./source/js/sliders.js ***!
-  \******************************/
+/***/ "./source/js/modules/sliders.js":
+/*!**************************************!*\
+  !*** ./source/js/modules/sliders.js ***!
+  \**************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

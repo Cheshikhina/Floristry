@@ -24,3 +24,31 @@
     height: 9.5px;
   }
 }
+
+@keyframes blink {
+  0% {
+    opacity: $opacity_02;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: $opacity_02;
+  }
+}
+
+@keyframes before_opacity {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

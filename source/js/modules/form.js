@@ -3,7 +3,6 @@ import overlay from './overlay';
 const form = (formNode, closeModal = false, closeModalContent = false) => {
   const inputs = formNode.querySelectorAll('input'),
     successMessages = ['Форма отправлена!', 'Мы свяжемся с вами в ближайшее время'],
-    submitButton = formNode.querySelector('[type="submit"]'),
     URL = 'http://httpbin.org/post',
     KeyCode = {
       ESC: 27,
@@ -38,10 +37,13 @@ const form = (formNode, closeModal = false, closeModalContent = false) => {
   };
 
   const validateInput = function (input) {
-    const lengthPhone = 18;
+    const lengthPhone = {
+      current: 11,
+      full: 18
+    };
     if (input.value.trim() === '') {
       return 'Заполните данное поле';
-    } else if (isInputPhone(input) & input.value.length < lengthPhone) {
+    } else if (isInputPhone(input) && ((input.value.length < lengthPhone.full && input.value.substring(0, 1) === '+') || (input.value.length < lengthPhone.current && input.value.substring(0, 1) === '7'))) {
       return 'Введите корректный номер телефона';
     }
     return false;
@@ -132,11 +134,18 @@ const form = (formNode, closeModal = false, closeModalContent = false) => {
   };
 
   const createErrorMessage = (errorText) => {
-    var errorMessage = document.createElement('p');
-    errorMessage.classList.add('form__error-message');
+    if (formNode.querySelector('.form__error_message')) {
+      return;
+    }
+    let errorMessage = document.createElement('p');
+    errorMessage.classList.add('form__error_message');
     errorMessage.textContent = errorText;
 
-    submitButton.insertAdjacentElement('beforebegin', errorMessage);
+    formNode.appendChild(errorMessage);
+
+    setTimeout(function () {
+      formNode.querySelector('.form__error_message').remove();
+    }, 4200);
   };
 
   const submitForm = (evt) => {
@@ -149,7 +158,9 @@ const form = (formNode, closeModal = false, closeModalContent = false) => {
 
     let data = new FormData(formNode);
     var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    xhr.onloadstart = function (eventt) {
+      xhr.responseType = "json";
+    }
     xhr.open('POST', URL);
     xhr.send(data);
 
