@@ -150,6 +150,7 @@ a.header__logo:active {
       }
     }
 
+    .header__logo--in_menu+a,
     a+a {
       margin-top: 81px;
     }

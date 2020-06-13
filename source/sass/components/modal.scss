@@ -21,7 +21,9 @@
   max-width: 716px;
   min-height: 444px;
   padding: 64px 66px;
-  transform: translateY(-50px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
   opacity: 0;
   background-color: $accent_1;
   transition: $duration_03;
@@ -119,18 +121,24 @@
 
 .modal__content--open {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, -50%);
   transition: $duration_03 $duration_07;
-
-  @media screen and (-ms-high-contrast: active),
-  (-ms-high-contrast: none) {
-    transform: translate(-50%, -50%);
-  }
 }
 
 .modal__item {
   width: 100%;
   height: 100%;
+}
+
+.modal__slider {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+
+  img {
+    width: 100%;
+  }
 }
 
 @media (max-width: $tablet_max) {

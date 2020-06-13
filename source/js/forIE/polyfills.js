@@ -1,4 +1,12 @@
 /* eslint-disable */
+
+/* Polifill
+remove,
+scrollTo,
+template
+*/
+
+// remove()
 if (!('remove' in Element.prototype)) {
   Element.prototype.remove = function () {
     if (this.parentNode) {
@@ -109,7 +117,7 @@ if (!('remove' in Element.prototype)) {
   } : o()
 }();
 
-/* POLYFILL */
+// templatePolyfill
 (function templatePolyfill(d) {
   if ('content' in d.createElement('template')) {
     return false;

@@ -193,4 +193,4 @@ gulp.task("clean", function () {
 
 gulp.task("build", gulp.series("clean", "copy", 'index', "css", "base64", "sprite", "html"));
 gulp.task("start", gulp.series("build", "server"));
-gulp.task("prod", gulp.series("clean", "copy", 'index-min', "css", "base64", "sprite", "html"));
+gulp.task("prod", gulp.series("clean", "copy", "webp", "images", 'index-min', "css", "base64", "sprite", "html"));

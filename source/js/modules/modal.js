@@ -51,11 +51,14 @@ const modal = (selectorTrigger, idTemplate = false) => {
       modalBtnClose = modalWrap.querySelector('.modal__close');
       modalForm = modalWrap.querySelector('form');
     } else {
+      if (evt.target.classList.contains('page_slider__btn')) {
+        return;
+      }
       modalWrap = createElement('div', 'modal', body);
       modalInner = createElement('div', 'modal__content', modalWrap);
       modalBtnClose = createElement('button', 'modal__close', modalInner);
       modalBtnClose.type = 'button';
-      itemInPopup(evt.target, modalInner);
+      itemInPopup.mainFunction(evt, modalInner);
     }
 
     modalWrap.style.top = overlay.scrollY + 'px';

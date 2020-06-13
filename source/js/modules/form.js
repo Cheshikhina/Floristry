@@ -4,6 +4,7 @@ const form = (formNode, closeModal = false, closeModalContent = false) => {
   const inputs = formNode.querySelectorAll('input'),
     successMessages = ['Форма отправлена!', 'Мы свяжемся с вами в ближайшее время'],
     URL = 'http://httpbin.org/post',
+    MOBILE_WIDTH = 768,
     KeyCode = {
       ESC: 27,
     };
@@ -189,6 +190,16 @@ const form = (formNode, closeModal = false, closeModalContent = false) => {
 
   removePlaceholder();
   formNode.addEventListener('submit', submitForm);
+  inputs.forEach(input => {
+    if (window.matchMedia('(max-width: ' + MOBILE_WIDTH + 'px)').matches) {
+      input.addEventListener('touchstart', function (evt) {
+        evt.target.style.fontSize = '18px';
+      });
+      input.addEventListener('touchcancel', function (evt) {
+        evt.target.style.fontSize = '';
+      });
+    }
+  });
 };
 
 export default form;

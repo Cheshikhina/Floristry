@@ -1,4 +1,5 @@
 import Swiper from 'swiper';
+import itemInPopup from './item-in-popup';
 
 if (document.querySelector('.main_slider')) {
   const mainSlider = new Swiper('.main_slider', {
@@ -49,3 +50,23 @@ if (document.querySelector('.page_slider')) {
     }
   });
 }
+
+const target = document.querySelector('body');
+
+const observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
+    const modalSlider = new Swiper('.modal__slider>div', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      initialSlide: itemInPopup.activeEl
+    });
+  });
+});
+
+const config = {
+  attributes: true,
+  childList: true,
+  characterData: true
+};
+
+observer.observe(target, config);

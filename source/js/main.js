@@ -14,11 +14,14 @@ window.addEventListener('DOMContentLoaded', () => {
   menu('.header__btn');
   modal('[data-modal="open_popup"]', '#popup');
   modal('.trigger', '#popup');
-  modal('.page_slider__img');
+  modal('.page_slider');
 
   if (document.querySelectorAll('form').length) {
     document.querySelectorAll('form').forEach((item) => {
       form(item);
     });
   }
+  document.addEventListener('click', function (evt) {
+    console.log(evt.target);
+  })
 });
